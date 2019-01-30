@@ -1,0 +1,7 @@
+<resources>
+    <string name="title_screen_auth">Autenticação</string>
+    <string name="title_screen_dashboard">Dashboard</string>
+    <string name="title_screen_error">Ops…</string>
+    <string name="title_screen_register_user">Solicitar acesso</string>
+    <string name="title_screen_waiting_approvement">Aguardando aprovação</string>
+</resources>

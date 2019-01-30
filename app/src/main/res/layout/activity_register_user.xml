@@ -1,0 +1,141 @@
+<layout>
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="br.com.accera.mobile.tradeforceupdate.presentation.user.register.RegisterUserViewModel"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp"
+        tools:context=".presentation.user.register.RegisterUserActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Primeiro nome"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="@{!viewModel.getState().mLoading}"
+            android:inputType="textEmailAddress"/>
+
+
+        <TextView
+            android:id="@+id/tvFeedbackFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.getState().mFirstNameError}"
+            android:layout_gravity="right"
+            android:textColor="@android:color/holo_red_dark"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Último nome"
+            android:layout_marginTop="12dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="@{!viewModel.getState().mLoading}"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.getState().mLastNameError}"
+            android:layout_gravity="right"
+            android:textColor="@android:color/holo_red_dark"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+
+            android:text="E-mail"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="@{!viewModel.getState().mLoading}"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.getState().mEmailError}"
+            android:layout_gravity="right"
+            android:textColor="@android:color/holo_red_dark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Senha"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:enabled="@{!viewModel.getState().mLoading}"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.getState().mPasswordError}"
+            android:layout_gravity="right"
+            android:textColor="@android:color/holo_red_dark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Confirmação da senha"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="@{!viewModel.getState().mLoading}"
+            android:inputType="textPassword"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.getState().mLoading? View.VISIBLE : View.GONE}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:onClick="requestSystemAccess"
+            android:layout_height="wrap_content"
+            android:text="SOLICITAR ACESSO"
+            android:visibility="@{viewModel.getState().mLoading? View.GONE : View.VISIBLE}"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Trade Force Update</string>
+    <string name="atenttion">Atenção</string>
+    <string name="title_logout">Sair</string>
+    <string name="required_field">Campo obrigatório</string>
+    <string name="password_doesnt_matche">As senhas são diferentes</string>
+    <string name="waiting_approvement">Sua solicitacão foi realiazada. Por favor aguarde a aprovacao</string>
+    <string name="user_request_approved">Sua solicitacão foi aprovada!</string>
+</resources>
