@@ -1,5 +1,7 @@
 package br.com.accera.mobile.tradeforceupdate.platform.di.builder;
 
+import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthActivityModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardActivity;
@@ -34,4 +36,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector( modules = {RegisterUserActivityModule.class} )
     abstract RegisterUserActivity bindRegisterUserActivity();
+
+    @ContributesAndroidInjector( modules = {RegisterAppVersionModule.class} )
+    abstract RegisterAppVersionActivity bindRegisterAppVersionActivity();
 }

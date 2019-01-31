@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import javax.inject.Inject;
 
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.Drawer;
-import br.com.accera.mobile.tradeforceupdate.platform.firebase.di.firestore.RxFirestoreDocumentObserver;
+import br.com.accera.mobile.tradeforceupdate.platform.firebase.di.firestore.RxFirestoreObserver;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 
@@ -37,7 +37,7 @@ public class DrawerMenuDatasourceImpl implements DrawerMenuDatasource {
 
     @Override
     public Observable<Drawer> getDrawerMenu() {
-        return RxFirestoreDocumentObserver.create( Drawer.class ).observe(
+        return RxFirestoreObserver.create( Drawer.class ).observeDocument(
                 mDrawerCollection.document(getDrawerMenuVersion())
         );
     }

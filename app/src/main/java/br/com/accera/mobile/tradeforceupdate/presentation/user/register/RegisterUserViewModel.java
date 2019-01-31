@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import androidx.databinding.ObservableField;
 import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.rx.RxCaseExecutor;
+import br.com.accera.mobile.tradeforceupdate.common.platform.livedata.RequiredFieldValidation;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedback.AlertMessage;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.common.platform.util.StringUtil;
@@ -88,11 +89,11 @@ public class RegisterUserViewModel extends BaseObservableViewModel<RegisterUserO
 
     private boolean isDataInvalid( String name, String lastName, String email, String pass, String rePass ) {
         // Required fields
-        boolean valid = isFieldRequiredValid( name, mState.mFirstNameError );
-        valid &= isFieldRequiredValid( lastName, mState.mLastNameError );
-        valid &= isFieldRequiredValid( email, mState.mEmailError );
-        valid &= isFieldRequiredValid( pass, mState.mPasswordError );
-        valid &= isFieldRequiredValid( rePass, mState.mPasswordError );
+        boolean valid = RequiredFieldValidation.check( mResourceUtil, name, mState.mFirstNameError );
+        valid &= RequiredFieldValidation.check( mResourceUtil, lastName, mState.mLastNameError );
+        valid &= RequiredFieldValidation.check( mResourceUtil, email, mState.mEmailError );
+        valid &= RequiredFieldValidation.check( mResourceUtil, pass, mState.mPasswordError );
+        valid &= RequiredFieldValidation.check( mResourceUtil, rePass, mState.mPasswordError );
 
         // Pass validation
         valid &= passwordValidation( pass, rePass );
@@ -107,14 +108,6 @@ public class RegisterUserViewModel extends BaseObservableViewModel<RegisterUserO
         mState.mPasswordError.set( mResourceUtil.getString( R.string.password_doesnt_matche ) );
 
         return false;
-    }
-
-    private boolean isFieldRequiredValid( String name, ObservableField<String> observableField ) {
-        if( StringUtil.isEmpty( name ) ) {
-            observableField.set( mResourceUtil.getString( R.string.required_field ) );
-            return false;
-        }
-        return true;
     }
 
     private void cleanAllErrors() {

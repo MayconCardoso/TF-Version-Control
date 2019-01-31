@@ -4,4 +4,5 @@
     <string name="title_screen_error">Ops…</string>
     <string name="title_screen_register_user">Solicitar acesso</string>
     <string name="title_screen_waiting_approvement">Aguardando aprovação</string>
+    <string name="title_screen_register_app_version">Registro de versão</string>
 </resources>

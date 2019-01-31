@@ -1,9 +1,11 @@
 package br.com.accera.mobile.tradeforceupdate.presentation.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -11,6 +13,7 @@ import javax.inject.Inject;
 import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityDashboardBinding;
+import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuComponent;
 
 /**
@@ -53,4 +56,8 @@ public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding
         mViewModel.getObservable().mAuthScreen.observe( this, ( __ ) -> mNavigator.goToLogin() );
     }
 
+    public void registerVersion( View view ) {
+        // TODO: 30/01/2019 remove
+        startActivity( new Intent( this, RegisterAppVersionActivity.class ) );
+    }
 }

@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import javax.inject.Inject;
 
 import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
-import br.com.accera.mobile.tradeforceupdate.platform.firebase.di.firestore.RxFirestoreDocumentObserver;
+import br.com.accera.mobile.tradeforceupdate.platform.firebase.di.firestore.RxFirestoreObserver;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -58,7 +58,7 @@ public class UserDatasourceImpl implements UserDatasource {
 
     @Override
     public Observable<User> observeUser( String email ) {
-        return RxFirestoreDocumentObserver.create( User.class ).observe(
+        return RxFirestoreObserver.create( User.class ).observeDocument(
                 mUserCollection.document( email )
         );
     }

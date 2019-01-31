@@ -2,6 +2,8 @@ package br.com.accera.mobile.tradeforceupdate.platform.di.module;
 
 import javax.inject.Singleton;
 
+import br.com.accera.mobile.tradeforceupdate.data.appversion.datasource.AppVersionDatasource;
+import br.com.accera.mobile.tradeforceupdate.data.appversion.datasource.AppVersionDatasourceImpl;
 import br.com.accera.mobile.tradeforceupdate.data.auth.datasource.AuthDatasource;
 import br.com.accera.mobile.tradeforceupdate.data.auth.datasource.AuthDatasourceImpl;
 import br.com.accera.mobile.tradeforceupdate.data.drawermenu.datasource.DrawerMenuDatasource;
@@ -25,4 +27,7 @@ public abstract class DatasourceModule {
 
     @Binds
     abstract UserDatasource provideUserDatasource( UserDatasourceImpl provider );
+
+    @Binds
+    abstract AppVersionDatasource provideAppVersionDatasource( AppVersionDatasourceImpl provider );
 }

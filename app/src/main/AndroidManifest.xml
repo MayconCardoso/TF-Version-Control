@@ -24,12 +24,15 @@
 
         <activity
             android:name=".presentation.dashboard.DashboardActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/title_screen_dashboard"/>
 
         <activity
             android:name=".presentation.user.register.RegisterUserActivity"
             android:label="@string/title_screen_register_user"/>
+
+        <activity
+            android:name=".presentation.appversion.register.RegisterAppVersionActivity"
+            android:label="@string/title_screen_register_app_version"/>
 
         <activity
             android:name=".presentation.user.waitingapprovement.WaitingApprovementActivity"
