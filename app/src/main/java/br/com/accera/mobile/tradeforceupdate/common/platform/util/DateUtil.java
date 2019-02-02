@@ -9,6 +9,6 @@ import java.util.Locale;
  */
 public class DateUtil {
     public static String getCurrentDate() {
-        return new SimpleDateFormat( "yyyy-MM-dd HH:mm", Locale.getDefault() ).format( new Date() );
+        return new SimpleDateFormat( "dd-MM-yyyy HH:mm", Locale.getDefault() ).format( new Date() );
     }
 }

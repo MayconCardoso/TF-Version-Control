@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityDashboardBinding;
-import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.appversion.list.ListAppVersionActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuComponent;
 
 /**
@@ -58,6 +58,6 @@ public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding
 
     public void registerVersion( View view ) {
         // TODO: 30/01/2019 remove
-        startActivity( new Intent( this, RegisterAppVersionActivity.class ) );
+        startActivity( new Intent( this, ListAppVersionActivity.class ) );
     }
 }

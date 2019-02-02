@@ -37,6 +37,9 @@
         <activity
             android:name=".presentation.user.waitingapprovement.WaitingApprovementActivity"
             android:label="@string/title_screen_waiting_approvement"/>
+ <activity
+            android:name=".presentation.appversion.list.ListAppVersionActivity"
+            android:label="@string/title_screen_versions"/>
 
         <activity
             android:name=".presentation.error.ErrorActivity"

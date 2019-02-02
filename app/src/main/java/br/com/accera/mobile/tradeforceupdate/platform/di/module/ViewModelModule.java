@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.ViewModelFactory;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.ViewModelKey;
+import br.com.accera.mobile.tradeforceupdate.presentation.appversion.list.ListAppVersionViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardViewModel;
@@ -65,5 +66,10 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey( RegisterAppVersionViewModel.class )
     abstract ViewModel bindRegisterAppVersionViewModel( RegisterAppVersionViewModel viewModel );
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( ListAppVersionViewModel.class )
+    abstract ViewModel bindListAppVersionViewModel( ListAppVersionViewModel viewModel );
 
 }
