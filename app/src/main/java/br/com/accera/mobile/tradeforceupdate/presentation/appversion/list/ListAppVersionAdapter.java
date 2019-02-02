@@ -79,7 +79,8 @@ public class ListAppVersionAdapter extends RecyclerView.Adapter<ListAppVersionAd
                 AppVersion comment = versions.get( newItemPosition );
                 return old.getVersionName().equals( comment.getVersionName() )
                         && old.getApkPath().equals( comment.getApkPath() )
-                        && old.getVersionCode().equals( comment.getVersionCode() );
+                        && old.getVersionCode().equals( comment.getVersionCode() )
+                        && old.getCreatedDate().equals( comment.getCreatedDate() );
             }
         } );
         mItens = versions;

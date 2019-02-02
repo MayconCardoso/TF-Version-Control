@@ -24,48 +24,56 @@ public class RxFirestoreObserver<VALUE> {
 
     public Observable<VALUE> observeDocument( DocumentReference reference ) {
         return Observable.defer( () -> Observable.<VALUE>create( emitter -> {
-                    mRegistrationCallback = reference.addSnapshotListener( ( documentSnapshot, e ) -> {
-                        if( emitter == null || emitter.isDisposed() ) return;
-                        if( documentSnapshot == null ) {
-                            emitter.onComplete();
-                            return;
-                        }
-                        if( !documentSnapshot.exists() ) {
-                            emitter.onComplete();
-                            return;
-                        }
+            mRegistrationCallback = reference.addSnapshotListener( ( documentSnapshot, e ) -> {
+                if( emitter == null || emitter.isDisposed() ) return;
+                if( e != null ) emitter.onError( e );
 
-                        emitter.onNext( documentSnapshot.toObject( mObservedEntityClass ) );
-                    } );
-                } ).doOnDispose( () -> {
-                    if( mRegistrationCallback != null ) {
-                        AppLogger.d( "Dismiss observeUser callback" );
-                        mRegistrationCallback.remove();
-                    }
-                } )
-        );
+                if( documentSnapshot == null ) {
+                    emitter.onComplete();
+                    return;
+                }
+                if( !documentSnapshot.exists() ) {
+                    emitter.onComplete();
+                    return;
+                }
+
+                emitter.onNext( documentSnapshot.toObject( mObservedEntityClass ) );
+            } );
+        } ).doOnDispose( () -> {
+            if( mRegistrationCallback != null ) {
+                AppLogger.d( "Dismiss observeUser callback" );
+                mRegistrationCallback.remove();
+            }
+        } ) );
     }
 
     public Observable<List<VALUE>> observeCollection( Query query ) {
-        return Observable.defer( () ->
-                Observable.create( emitter -> query.get().addOnFailureListener( e -> {
-                    if( emitter == null || emitter.isDisposed() ) return;
-                    emitter.onError( e );
-                } ).addOnSuccessListener( queryDocumentSnapshots -> {
-                    if( emitter == null || emitter.isDisposed() ) return;
+        return Observable.defer( () -> Observable.<List<VALUE>>create( emitter -> {
+            mRegistrationCallback = query.addSnapshotListener( ( documentSnapshot, e ) -> {
+                if( emitter == null || emitter.isDisposed() ) return;
+                if( e != null ) emitter.onError( e );
 
-                    List<VALUE> values = new ArrayList<>();
-                    for ( QueryDocumentSnapshot document : queryDocumentSnapshots ) {
-                        if( !document.exists() ) {
-                            continue;
-                        }
-                        values.add( document.toObject( mObservedEntityClass ) );
-                    }
-
-                    emitter.onNext( values );
+                if( documentSnapshot == null ) {
                     emitter.onComplete();
-                } ) )
-        );
+                    return;
+                }
+
+                List<VALUE> values = new ArrayList<>();
+                for ( QueryDocumentSnapshot document : documentSnapshot ) {
+                    if( !document.exists() ) {
+                        continue;
+                    }
+                    values.add( document.toObject( mObservedEntityClass ) );
+                }
+
+                emitter.onNext( values );
+            } );
+        } ).doOnDispose( () -> {
+            if( mRegistrationCallback != null ) {
+                AppLogger.d( "Dismiss observeUser callback" );
+                mRegistrationCallback.remove();
+            }
+        } ) );
     }
 
     public static <T> RxFirestoreObserver<T> create( Class<T> className ) {
