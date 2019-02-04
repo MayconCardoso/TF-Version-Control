@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="@{viewModel.getState().mVersionName}"
+                android:text="@{viewModel.getState().mNameError}"
                 android:textColor="@android:color/holo_red_dark"/>
 
 
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="@{viewModel.getState().mVersionCode}"
+                android:text="@{viewModel.getState().mDbNameError}"
                 android:textColor="@android:color/holo_red_dark"/>
 
 
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="@{viewModel.getState().mVersionCode}"
+                android:text="@{viewModel.getState().mTotalUserError}"
                 android:textColor="@android:color/holo_red_dark"/>
 
             <TextView

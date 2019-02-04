@@ -13,7 +13,6 @@ public class RegisterInstanceState implements DataState {
     public final ObservableBoolean mLoading = new ObservableBoolean( false );
     public final ObservableField<String> mNameError = new ObservableField<>();
     public final ObservableField<String> mDbNameError = new ObservableField<>();
-    public final ObservableField<String> mMdmError = new ObservableField<>();
     public final ObservableField<String> mTotalUserError = new ObservableField<>();
 
     @Inject

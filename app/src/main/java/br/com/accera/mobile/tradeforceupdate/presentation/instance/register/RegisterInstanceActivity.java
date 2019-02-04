@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityRegisterInstanceBinding;
+import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
+import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.InstanceOwner;
 
 /**
  * @author MAYCON CARDOSO on 30/01/2019.
@@ -21,7 +23,6 @@ public class RegisterInstanceActivity extends BaseMvvmActivity<ActivityRegisterI
         registerObservables();
         mViewModel.loadVersions();
     }
-
 
     @Override
     public int getLayoutId() {
@@ -38,5 +39,22 @@ public class RegisterInstanceActivity extends BaseMvvmActivity<ActivityRegisterI
     }
 
     public void registerInstance( View view ) {
+        mViewModel.register(
+                mViewDataBinding.etInstanceName.getText().toString().trim(),
+                mViewDataBinding.etDatabaseName.getText().toString().trim(),
+                mViewDataBinding.etMdm.getText().toString().trim(),
+                mViewDataBinding.etTotalUsuarios.getText().toString().trim(),
+                getSelectedAppVersion(),
+                getAppOwner()
+        );
+    }
+
+    private InstanceOwner getAppOwner() {
+        int idSelected = mViewDataBinding.rgOwner.getCheckedRadioButtonId();
+        return idSelected == mViewDataBinding.rbTech.getId() ? InstanceOwner.TECH : InstanceOwner.OPERATION;
+    }
+
+    private AppVersion getSelectedAppVersion() {
+        return (AppVersion) mViewDataBinding.spVersaoAtual.getSelectedItem();
     }
 }

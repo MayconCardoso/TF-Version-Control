@@ -10,8 +10,8 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.livedata.RequiredFi
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedback.AlertMessage;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.cases.GetAppVersionsCase;
-import br.com.accera.mobile.tradeforceupdate.domain.appversion.cases.RegisterAppVersionCase;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
+import br.com.accera.mobile.tradeforceupdate.domain.instance.cases.RegisterInstanceCase;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.InstanceOwner;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.CompletableObserver;
@@ -24,11 +24,11 @@ import io.reactivex.disposables.Disposable;
  */
 public class RegisterInstanceViewModel extends BaseObservableViewModel<RegisterInstanceObservables, RegisterInstanceState> {
 
-    private RegisterAppVersionCase mRegisterCase;
+    private RegisterInstanceCase mRegisterCase;
     private GetAppVersionsCase mGetAppVersionsCase;
 
     @Inject
-    public RegisterInstanceViewModel( RegisterAppVersionCase registerUserCase, GetAppVersionsCase getAppVersionsCase ) {
+    public RegisterInstanceViewModel( RegisterInstanceCase registerUserCase, GetAppVersionsCase getAppVersionsCase ) {
         mRegisterCase = addUseCase( registerUserCase );
         mGetAppVersionsCase = addUseCase( getAppVersionsCase );
     }
@@ -58,12 +58,12 @@ public class RegisterInstanceViewModel extends BaseObservableViewModel<RegisterI
 
         cleanAllErrors();
 
-        if( isDataInvalid( instance ) ) {
+        if( isDataInvalid( instance, countUsers ) ) {
             return;
         }
 
         // Run use case
-        RxCaseExecutor.execute( mRegisterCase, version ).subscribe( new CompletableObserver() {
+        RxCaseExecutor.execute( mRegisterCase, instance ).subscribe( new CompletableObserver() {
             @Override
             public void onSubscribe( Disposable disposable ) {
                 getCompositeDisposable().add( disposable );
@@ -91,12 +91,11 @@ public class RegisterInstanceViewModel extends BaseObservableViewModel<RegisterI
         } );
     }
 
-    private boolean isDataInvalid( Instance item ) {
+    private boolean isDataInvalid( Instance item, String count ) {
         // Required fields
         boolean valid = RequiredFieldValidation.check( mResourceUtil, item.getName(), mState.mNameError );
         valid &= RequiredFieldValidation.check( mResourceUtil, item.getDbName(), mState.mDbNameError );
-        valid &= RequiredFieldValidation.check( mResourceUtil, item.getMdm(), mState.mMdmError );
-        valid &= RequiredFieldValidation.check( mResourceUtil, String.valueOf( item.getTotalUsuarios() ), mState.mTotalUserError );
+        valid &= RequiredFieldValidation.check( mResourceUtil, count, mState.mTotalUserError );
         return !valid;
     }
 
@@ -105,7 +104,7 @@ public class RegisterInstanceViewModel extends BaseObservableViewModel<RegisterI
         request.setName( name );
         request.setDbName( dbName );
         request.setMdm( mdm );
-        request.setTotalUsuarios( Integer.parseInt( countUsers ) );
+        request.setTotalUsuarios( countUsers.isEmpty() ? 0 : Integer.parseInt( countUsers ) );
         request.setCurrentVersion( version );
         request.setOwner( owner );
         return request;
@@ -114,7 +113,6 @@ public class RegisterInstanceViewModel extends BaseObservableViewModel<RegisterI
     private void cleanAllErrors() {
         mState.mNameError.set( "" );
         mState.mDbNameError.set( "" );
-        mState.mMdmError.set( "" );
         mState.mTotalUserError.set( "" );
     }
 }
