@@ -1,4 +1,4 @@
-package br.com.accera.mobile.tradeforceupdate.domain.instance.repository;
+package br.com.accera.mobile.tradeforceupdate.data.instance.datasource;
 
 import java.util.List;
 
@@ -7,12 +7,11 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 /**
- * @author MAYCON CARDOSO on 06/01/2019.
+ * @author MAYCON CARDOSO on 03/02/2019.
  */
-public interface InstanceRepository {
+public interface InstanceDatasource {
 
     Completable register( Instance instance );
 
     Observable<List<Instance>> getAllInstances();
-
 }

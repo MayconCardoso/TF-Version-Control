@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.splash.SplashActivity"
+        <activity
+            android:name=".presentation.splash.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -37,9 +38,13 @@
         <activity
             android:name=".presentation.user.waitingapprovement.WaitingApprovementActivity"
             android:label="@string/title_screen_waiting_approvement"/>
- <activity
+
+        <activity
             android:name=".presentation.appversion.list.ListAppVersionActivity"
             android:label="@string/title_screen_versions"/>
+        <activity
+            android:name=".presentation.instance.register.RegisterInstanceActivity"
+            android:label="@string/title_screen_register_instance"/>
 
         <activity
             android:name=".presentation.error.ErrorActivity"

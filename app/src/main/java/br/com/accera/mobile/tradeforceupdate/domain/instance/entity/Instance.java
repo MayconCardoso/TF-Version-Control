@@ -6,26 +6,13 @@ import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion
  * @author MAYCON CARDOSO on 06/01/2019.
  */
 public class Instance {
-    private AppVersion currentVersion;
-    private String id;
     private String name;
+    private String dbName;
+    private String mdm;
     private String image;
-
-    public AppVersion getCurrentVersion() {
-        return currentVersion;
-    }
-
-    public void setCurrentVersion( AppVersion currentVersion ) {
-        this.currentVersion = currentVersion;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId( String id ) {
-        this.id = id;
-    }
+    private int totalUsuarios;
+    private AppVersion currentVersion;
+    private InstanceOwner owner;
 
     public String getName() {
         return name;
@@ -35,11 +22,51 @@ public class Instance {
         this.name = name;
     }
 
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName( String dbName ) {
+        this.dbName = dbName;
+    }
+
+    public String getMdm() {
+        return mdm;
+    }
+
+    public void setMdm( String mdm ) {
+        this.mdm = mdm;
+    }
+
     public String getImage() {
         return image;
     }
 
     public void setImage( String image ) {
         this.image = image;
+    }
+
+    public int getTotalUsuarios() {
+        return totalUsuarios;
+    }
+
+    public void setTotalUsuarios( int totalUsuarios ) {
+        this.totalUsuarios = totalUsuarios;
+    }
+
+    public AppVersion getCurrentVersion() {
+        return currentVersion;
+    }
+
+    public void setCurrentVersion( AppVersion currentVersion ) {
+        this.currentVersion = currentVersion;
+    }
+
+    public InstanceOwner getOwner() {
+        return owner;
+    }
+
+    public void setOwner( InstanceOwner owner ) {
+        this.owner = owner;
     }
 }

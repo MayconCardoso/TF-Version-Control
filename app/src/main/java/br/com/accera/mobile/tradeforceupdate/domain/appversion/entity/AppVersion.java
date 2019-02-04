@@ -1,5 +1,7 @@
 package br.com.accera.mobile.tradeforceupdate.domain.appversion.entity;
 
+import androidx.annotation.NonNull;
+
 /**
  * @author MAYCON CARDOSO on 06/01/2019.
  */
@@ -48,5 +50,11 @@ public class AppVersion {
 
     public void setCreatedDate( String createdDate ) {
         this.createdDate = createdDate;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getVersionName();
     }
 }

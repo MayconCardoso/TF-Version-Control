@@ -1,0 +1,169 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.instance.register.RegisterInstanceActivity">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceViewModel"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome da instância *"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etInstanceName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!viewModel.getState().mLoading}"
+                android:inputType="text"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@{viewModel.getState().mVersionName}"
+                android:textColor="@android:color/holo_red_dark"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Nome do banco de dados *"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etDatabaseName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!viewModel.getState().mLoading}"
+                android:inputType="text"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@{viewModel.getState().mVersionCode}"
+                android:textColor="@android:color/holo_red_dark"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="MDM"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etMdm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!viewModel.getState().mLoading}"
+                android:inputType="text"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Total de usuários *"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etTotalUsuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!viewModel.getState().mLoading}"
+                android:inputType="number"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@{viewModel.getState().mVersionCode}"
+                android:textColor="@android:color/holo_red_dark"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Versão atual *"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spVersaoAtual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!viewModel.getState().mLoading}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Responsável pela atualização *"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/rgOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/rbTech"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbTech"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tecnologia"/>
+
+                <RadioButton
+                    android:id="@+id/rbOperation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Operação"/>
+            </RadioGroup>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.getState().mLoading? View.VISIBLE : View.GONE}"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="registerInstance"
+                android:text="SOLICITAR ACESSO"
+                android:visibility="@{viewModel.getState().mLoading? View.GONE : View.VISIBLE}"/>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>
