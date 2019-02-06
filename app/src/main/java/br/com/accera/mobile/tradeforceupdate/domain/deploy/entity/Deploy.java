@@ -1,5 +1,6 @@
 package br.com.accera.mobile.tradeforceupdate.domain.deploy.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
@@ -53,5 +54,13 @@ public class Deploy {
 
     public void setVersion( AppVersion version ) {
         this.version = version;
+    }
+
+    public synchronized void addInstance( Instance instance ){
+        if(instance == null){
+            instances = new ArrayList<>();
+        }
+
+        instances.add( instance );
     }
 }
