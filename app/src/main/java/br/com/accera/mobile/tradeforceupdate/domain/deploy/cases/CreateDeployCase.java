@@ -24,6 +24,7 @@ public class CreateDeployCase {
         Deploy deploy = new Deploy();
         deploy.setVersion( version );
         deploy.setDate( date );
+        int countAffectUsers = 0;
 
         for ( int count = 0; count < countOfInitialClients; count++ ) {
             // Get random instance.
@@ -32,9 +33,16 @@ public class CreateDeployCase {
             // Remove it from array to don't repeat it in the next call.
             instances.remove( instance );
 
+            // Sum total of affected users.
+            countAffectUsers += instance.getTotalUsuarios();
+
             // Add instance on schedule.
             deploy.addInstance( instance );
         }
+
+        deploy.setTotalClients( deploy.getInstances().size() );
+        deploy.setAffectedUsers( countAffectUsers );
+
         return deploy;
     }
 }
