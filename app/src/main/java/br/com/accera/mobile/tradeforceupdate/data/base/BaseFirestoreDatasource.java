@@ -13,7 +13,7 @@ import io.reactivex.Observable;
  * @author MAYCON CARDOSO on 03/02/2019.
  */
 public class BaseFirestoreDatasource<ENTITY> {
-    private CollectionReference mCollection;
+    protected CollectionReference mCollection;
 
     public BaseFirestoreDatasource( CollectionReference collection ) {
         mCollection = collection;
@@ -31,5 +31,9 @@ public class BaseFirestoreDatasource<ENTITY> {
         return RxFirestoreObserver.create( entityClass ).observeCollection(
                 mCollection.orderBy( order, Query.Direction.DESCENDING )
         );
+    }
+
+    public Observable<List<ENTITY>> getAll(Class<ENTITY> entityClass, Query query) {
+        return RxFirestoreObserver.create( entityClass ).observeCollection( query );
     }
 }

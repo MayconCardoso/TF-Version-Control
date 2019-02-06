@@ -1,6 +1,7 @@
 package br.com.accera.mobile.tradeforceupdate.data.instance.datasource;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.List;
 
@@ -28,7 +29,10 @@ public class InstanceDatasourceImpl extends BaseFirestoreDatasource<Instance> im
     }
 
     @Override
-    public Observable<List<Instance>> getAllInstances() {
-        return getAll( Instance.class, "name" );
+    public Observable<List<Instance>> getAllInstancesByOwner( String value ) {
+        return getAll( Instance.class, mCollection
+                .whereEqualTo( "owner", value )
+                .orderBy( "name", Query.Direction.ASCENDING )
+        );
     }
 }

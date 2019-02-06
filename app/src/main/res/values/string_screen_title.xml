@@ -7,4 +7,5 @@
     <string name="title_screen_register_app_version">Registro de versão</string>
     <string name="title_screen_versions">Versões</string>
     <string name="title_screen_register_instance">Registro de instância</string>
+    <string name="title_screen_list_instance">Instâncias</string>
 </resources>

@@ -13,5 +13,5 @@ public interface InstanceDatasource {
 
     Completable register( Instance instance );
 
-    Observable<List<Instance>> getAllInstances();
+    Observable<List<Instance>> getAllInstancesByOwner( String owner );
 }

@@ -9,6 +9,7 @@ import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.Re
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuViewModel;
+import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.splash.SplashViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.register.RegisterUserViewModel;
@@ -77,5 +78,10 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey( RegisterInstanceViewModel.class )
     abstract ViewModel bindRegisterInstanceViewModel( RegisterInstanceViewModel viewModel );
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( ListInstanceViewModel.class )
+    abstract ViewModel bindListInstanceViewModel( ListInstanceViewModel viewModel );
 
 }

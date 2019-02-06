@@ -1,0 +1,60 @@
+<layout>
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceViewModel"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_margin="6dp"
+            android:layout_height="wrap_content"
+            android:text="Filtro"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModel.loadInstancesFromTech()}"
+                android:layout_height="wrap_content"
+                android:text="Tecnologia"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModel.loadInstancesFromOps()}"
+                android:layout_height="wrap_content"
+                android:text="Operações"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.getState().mLoading? View.VISIBLE : View.GONE}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewModel.getState().mLoading? View.GONE : View.VISIBLE}"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</layout>

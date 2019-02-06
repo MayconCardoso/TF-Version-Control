@@ -6,4 +6,5 @@
     <string name="password_doesnt_matche">As senhas são diferentes</string>
     <string name="waiting_approvement">Sua solicitacão foi realiazada. Por favor aguarde a aprovacao</string>
     <string name="user_request_approved">Sua solicitacão foi aprovada!</string>
+    <string name="title_add">Novo</string>
 </resources>

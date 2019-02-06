@@ -1,4 +1,4 @@
-package br.com.accera.mobile.tradeforceupdate.presentation.appversion.list;
+package br.com.accera.mobile.tradeforceupdate.presentation.instance.list;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
-import br.com.accera.mobile.tradeforceupdate.databinding.ActivityListAppVersionBinding;
+import br.com.accera.mobile.tradeforceupdate.databinding.ActivityListInstanceBinding;
 
 /**
  * @author MAYCON CARDOSO on 30/01/2019.
  */
-public class ListAppVersionActivity extends BaseMvvmActivity<ActivityListAppVersionBinding, ListAppVersionViewModel, ListAppVersionNavigator> {
+public class ListInstanceActivity extends BaseMvvmActivity<ActivityListInstanceBinding, ListInstanceViewModel, ListInstanceNavigator> {
     @Inject
-    protected ListAppVersionAdapter mVersionAdapter;
+    protected ListInstanceAdapter mAdapter;
 
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
@@ -28,7 +28,7 @@ public class ListAppVersionActivity extends BaseMvvmActivity<ActivityListAppVers
         registerObservables();
         setUpRecyclerView();
 
-        mViewModel.getVersions();
+        mViewModel.loadInstances();
     }
 
     @Override
@@ -48,18 +48,18 @@ public class ListAppVersionActivity extends BaseMvvmActivity<ActivityListAppVers
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_list_app_version;
+        return R.layout.activity_list_instance;
     }
 
     private void registerObservables() {
-        mViewModel.getObservable().mRegisterVersion.observe( this, ( __ ) -> mNavigator.goToRegisterVersion() );
-        mViewModel.getObservable().mAppVersions.observe( this, mVersionAdapter::setVersions );
+        mViewModel.getObservable().mRegister.observe( this, ( __ ) -> mNavigator.goToRegisterInstance() );
+        mViewModel.getObservable().mItens.observe( this, mAdapter::setItens );
     }
 
     private void setUpRecyclerView() {
         RecyclerView recycler = mViewDataBinding.appRecycler;
-        recycler.setLayoutManager(new LinearLayoutManager( this ));
-        recycler.setItemAnimator(new DefaultItemAnimator());
-        recycler.setAdapter(mVersionAdapter);
+        recycler.setLayoutManager( new LinearLayoutManager( this ) );
+        recycler.setItemAnimator( new DefaultItemAnimator() );
+        recycler.setAdapter( mAdapter );
     }
 }

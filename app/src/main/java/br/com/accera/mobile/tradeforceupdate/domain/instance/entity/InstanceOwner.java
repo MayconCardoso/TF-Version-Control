@@ -4,7 +4,7 @@ package br.com.accera.mobile.tradeforceupdate.domain.instance.entity;
  * @author MAYCON CARDOSO on 03/02/2019.
  */
 public enum InstanceOwner {
-    TECH("TECHNOLOGY"),
+    TECH("TECH"),
     OPERATION("OPERATION");
 
     String owner;
