@@ -1,0 +1,131 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.instance.register.RegisterInstanceActivity">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceViewModel"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Versão do App"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spVersaoAtual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!viewModel.getState().mLoading}"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Quantos dias operações preicisa?"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etDaysNecessary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:enabled="@{!viewModel.getState().mLoading}"
+                android:inputType="text"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@{viewModel.getState().mNameError}"
+                android:textColor="@android:color/holo_red_dark"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Porcentagem inicial"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etInitialPercent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:enabled="@{!viewModel.getState().mLoading}"
+                android:inputType="text"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@{viewModel.getState().mDbNameError}"
+                android:textColor="@android:color/holo_red_dark"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Quantas publicações deve ocorrer?"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etCountDeploys"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:enabled="@{!viewModel.getState().mLoading}"
+                android:inputType="text"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@{viewModel.getState().mTotalUserError}"
+                android:textColor="@android:color/holo_red_dark"/>
+
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.getState().mLoading? View.VISIBLE : View.GONE}"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="registerInstance"
+                android:text="CRIAR CALENDÁRIO"
+                android:visibility="@{viewModel.getState().mLoading? View.GONE : View.VISIBLE}"/>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

@@ -66,4 +66,8 @@ public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding
         // TODO: 30/01/2019 remove
         startActivity( new Intent( this, ListInstanceActivity.class ) );
     }
+
+    public void registerCalendar( View view ) {
+        
+    }
 }

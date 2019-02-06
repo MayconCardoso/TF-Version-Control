@@ -8,4 +8,5 @@
     <string name="title_screen_versions">Versões</string>
     <string name="title_screen_register_instance">Registro de instância</string>
     <string name="title_screen_list_instance">Instâncias</string>
+    <string name="title_screen_schedule_deploy">Criar cronograma</string>
 </resources>

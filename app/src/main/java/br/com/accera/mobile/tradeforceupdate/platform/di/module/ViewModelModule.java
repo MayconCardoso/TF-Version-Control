@@ -7,6 +7,7 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.V
 import br.com.accera.mobile.tradeforceupdate.presentation.appversion.list.ListAppVersionViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthViewModel;
+import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceViewModel;
@@ -83,5 +84,10 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey( ListInstanceViewModel.class )
     abstract ViewModel bindListInstanceViewModel( ListInstanceViewModel viewModel );
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( ScheduleDeployViewModel.class )
+    abstract ViewModel bindRegisterCalendarViewModel( ScheduleDeployViewModel viewModel );
 
 }

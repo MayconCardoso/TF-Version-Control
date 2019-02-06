@@ -6,6 +6,8 @@ import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.Re
 import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthActivityModule;
+import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardActivityModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuModule;
@@ -54,4 +56,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector( modules = {ListInstanceModule.class} )
     abstract ListInstanceActivity bindListInstanceActivity();
+
+    @ContributesAndroidInjector( modules = {ScheduleDeployModule.class} )
+    abstract ScheduleDeployActivity bindRegisterCalendarActivity();
 }

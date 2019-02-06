@@ -48,6 +48,9 @@
  <activity
             android:name=".presentation.instance.list.ListInstanceActivity"
             android:label="@string/title_screen_list_instance"/>
+ <activity
+            android:name=".presentation.deploy.schedule.ScheduleDeployActivity"
+            android:label="@string/title_screen_schedule_deploy"/>
 
         <activity
             android:name=".presentation.error.ErrorActivity"
