@@ -21,6 +21,7 @@ import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
 public class ListInstanceAdapter extends RecyclerView.Adapter<ListInstanceAdapter.ViewHolder> {
     private List<Instance> mItens;
     private LayoutInflater mLayoutInflater;
+    private Event mEvent;
 
     @Inject
     public ListInstanceAdapter() {
@@ -38,7 +39,9 @@ public class ListInstanceAdapter extends RecyclerView.Adapter<ListInstanceAdapte
 
     @Override
     public void onBindViewHolder( @NonNull ViewHolder holder, int position ) {
-        holder.binding.setItem( mItens.get( position ) );
+        Instance item = mItens.get( position );
+        holder.binding.setItem( item );
+        holder.binding.getRoot().setOnClickListener( view -> mEvent.edit( item ) );
         holder.binding.executePendingBindings();
     }
 
@@ -86,6 +89,18 @@ public class ListInstanceAdapter extends RecyclerView.Adapter<ListInstanceAdapte
         diffResult.dispatchUpdatesTo( this );
     }
 
+    public void setEvent( Event event ) {
+        mEvent = event;
+    }
+
+    //==============================================================================================
+    //
+    //
+    //
+    //
+    //==============================================================================================
+    // INNER CLASS
+    //==============================================================================================
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemInstanceBinding binding;
 
@@ -93,5 +108,9 @@ public class ListInstanceAdapter extends RecyclerView.Adapter<ListInstanceAdapte
             super( itemBinding.getRoot() );
             this.binding = itemBinding;
         }
+    }
+
+    public interface Event {
+        void edit( Instance item );
     }
 }

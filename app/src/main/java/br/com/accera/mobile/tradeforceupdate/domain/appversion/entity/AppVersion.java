@@ -1,11 +1,13 @@
 package br.com.accera.mobile.tradeforceupdate.domain.appversion.entity;
 
+import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 
 /**
  * @author MAYCON CARDOSO on 06/01/2019.
  */
-public class AppVersion {
+public class AppVersion implements Serializable {
     private String versionCode;
     private String versionName;
     private String apkPath;

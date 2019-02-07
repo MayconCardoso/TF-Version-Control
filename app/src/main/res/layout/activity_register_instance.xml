@@ -10,6 +10,11 @@
         <variable
             name="viewModel"
             type="br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceViewModel"/>
+
+        <variable
+            name="item"
+            type="br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance"/>
+
     </data>
 
     <ScrollView
@@ -34,6 +39,7 @@
                 android:id="@+id/etInstanceName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{item.name}"
                 android:enabled="@{!viewModel.getState().mLoading}"
                 android:inputType="text"/>
 
@@ -57,6 +63,7 @@
             <EditText
                 android:id="@+id/etDatabaseName"
                 android:layout_width="match_parent"
+                android:text="@{item.dbName}"
                 android:layout_height="wrap_content"
                 android:enabled="@{!viewModel.getState().mLoading}"
                 android:inputType="text"/>
@@ -80,6 +87,7 @@
             <EditText
                 android:id="@+id/etMdm"
                 android:layout_width="match_parent"
+                android:text="@{item.mdm}"
                 android:layout_height="wrap_content"
                 android:enabled="@{!viewModel.getState().mLoading}"
                 android:inputType="text"/>
@@ -96,6 +104,7 @@
             <EditText
                 android:id="@+id/etTotalUsuarios"
                 android:layout_width="match_parent"
+                android:text='@{String.valueOf(item.totalUsuarios)}'
                 android:layout_height="wrap_content"
                 android:enabled="@{!viewModel.getState().mLoading}"
                 android:inputType="number"/>
@@ -125,6 +134,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:text="Grupo de atualização"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/rgGrupo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rgFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{item.updateGroup == 1}"
+                    android:text="Primeiro"/>
+                <RadioButton
+                    android:id="@+id/rgSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{item.updateGroup == 2}"
+                    android:text="Segundo"/>
+                <RadioButton
+                    android:id="@+id/rgThird"
+                    android:layout_width="wrap_content"
+                    android:checked="@{item.updateGroup == 3}"
+                    android:layout_height="wrap_content"
+                    android:text="Terceiro"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:text="Responsável pela atualização *"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"/>
@@ -133,19 +176,21 @@
                 android:id="@+id/rgOwner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checkedButton="@id/rbTech"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rbTech"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:checked='@{item.owner.owner.equals("TECH")}'
                     android:text="Tecnologia"/>
 
                 <RadioButton
                     android:id="@+id/rbOperation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked='@{item.owner.owner.equals("OPERATION")}'
                     android:layout_marginStart="8dp"
                     android:text="Operação"/>
             </RadioGroup>

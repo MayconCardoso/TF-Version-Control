@@ -38,6 +38,8 @@ public class ScheduleDeployCase extends CompletableUseCase<ScheduleDeployCase.Re
 
             // Get all technology's instances.
             return mRepository.getAllInstancesByOwner( InstanceOwner.TECH.getOwner() )
+                    // Get first element to not perform infinity cycle.
+                    .firstElement()
                     // Map it to an schedule deploy
                     .map( instances -> createDeploys( instances, daysToDeploy, value.version, value.initialPercent ) )
                     // Save schedule.
@@ -61,10 +63,10 @@ public class ScheduleDeployCase extends CompletableUseCase<ScheduleDeployCase.Re
         deploys.add( mCreateDeployCase.run( daysToDeploy.get( 0 ), instances, countOfInitialClients, version ) );
 
         // Get count of clients of each deploy
-        int countDrawnClientsOnEachDeploy = Math.round( restOfClients / instances.size() );
+        int countDrawnClientsOnEachDeploy = Math.round( restOfClients / daysToDeploy.size() - 1 );
 
         // Add other deploys, except the last one.
-        for(int daysIndex = 1; daysIndex < daysToDeploy.size(); daysIndex++){
+        for(int daysIndex = 1; daysIndex < daysToDeploy.size() - 1; daysIndex++){
             deploys.add( mCreateDeployCase.run( daysToDeploy.get( daysIndex ), instances, countDrawnClientsOnEachDeploy, version ) );
 
             // Decrement drawn clients.

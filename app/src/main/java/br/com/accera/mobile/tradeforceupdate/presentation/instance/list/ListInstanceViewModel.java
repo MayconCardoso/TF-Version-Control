@@ -28,14 +28,18 @@ public class ListInstanceViewModel extends BaseObservableViewModel<ListInstanceO
     }
 
     public void goToRegisterPage() {
-        getObservable().mRegister.call();
+        getObservable().mRegister.setValue( null );
     }
 
-    public void loadInstancesFromTech(){
+    public void editInstance( Instance item ) {
+        mObservable.mRegister.setValue( item );
+    }
+
+    public void loadInstancesFromTech() {
         getInstances( InstanceOwner.TECH.getOwner() );
     }
 
-    public void loadInstancesFromOps(){
+    public void loadInstancesFromOps() {
         getInstances( InstanceOwner.OPERATION.getOwner() );
     }
 
@@ -64,7 +68,7 @@ public class ListInstanceViewModel extends BaseObservableViewModel<ListInstanceO
     }
 
     public void loadInstances() {
-        if( TextUtils.isEmpty( mState.mInstance.get() ) ){
+        if( TextUtils.isEmpty( mState.mInstance.get() ) ) {
             mState.mInstance.set( InstanceOwner.TECH.getOwner() );
         }
 

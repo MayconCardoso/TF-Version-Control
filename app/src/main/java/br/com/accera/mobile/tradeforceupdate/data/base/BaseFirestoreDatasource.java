@@ -1,5 +1,6 @@
 package br.com.accera.mobile.tradeforceupdate.data.base;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Query;
 
@@ -20,11 +21,16 @@ public class BaseFirestoreDatasource<ENTITY> {
     }
 
     public Completable register( ENTITY entity, String key ) {
-        return Completable.create( emitter -> mCollection.document( key )
+        return Completable.defer( () -> Completable.create( emitter -> mCollection.document( key )
                 .set( entity )
-                .addOnSuccessListener( documentReference -> emitter.onComplete() )
+                .addOnSuccessListener( new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess( Void aVoid ) {
+                        emitter.onComplete();
+                    }
+                } )
                 .addOnFailureListener( emitter::onError )
-        );
+        ) );
     }
 
     public Observable<List<ENTITY>> getAll(Class<ENTITY> entityClass, String order) {

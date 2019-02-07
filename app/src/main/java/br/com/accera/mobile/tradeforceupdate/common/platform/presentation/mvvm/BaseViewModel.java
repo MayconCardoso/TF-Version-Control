@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.lifecycle.ViewModel;
+import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.CancelableUseCase;
 import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.UseCase;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedback.AlertMessage;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedback.HideKeyboard;
@@ -86,7 +87,9 @@ public abstract class BaseViewModel extends ViewModel {
 
     private void releaseUseCases() {
         for ( UseCase useCase : mUseCaseList ) {
-            useCase.cancel();
+            if( useCase instanceof CancelableUseCase ) {
+                ((CancelableUseCase) useCase).cancel();
+            }
         }
     }
     //==============================================================================================

@@ -1,11 +1,13 @@
 package br.com.accera.mobile.tradeforceupdate.domain.instance.entity;
 
+import java.io.Serializable;
+
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
 
 /**
  * @author MAYCON CARDOSO on 06/01/2019.
  */
-public class Instance {
+public class Instance implements Serializable {
     private String name;
     private String dbName;
     private String mdm;
@@ -13,6 +15,7 @@ public class Instance {
     private int totalUsuarios;
     private AppVersion currentVersion;
     private InstanceOwner owner;
+    private int updateGroup;
 
     public String getName() {
         return name;
@@ -68,5 +71,13 @@ public class Instance {
 
     public void setOwner( InstanceOwner owner ) {
         this.owner = owner;
+    }
+
+    public int getUpdateGroup() {
+        return updateGroup;
+    }
+
+    public void setUpdateGroup( int updateGroup ) {
+        this.updateGroup = updateGroup;
     }
 }

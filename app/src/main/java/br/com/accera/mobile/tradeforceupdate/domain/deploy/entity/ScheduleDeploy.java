@@ -10,6 +10,7 @@ import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion
 public class ScheduleDeploy {
     private List<Deploy> deploys;
     private String createdDate;
+    private boolean completed;
 
     public List<Deploy> getDeploys() {
         return deploys;
@@ -25,5 +26,13 @@ public class ScheduleDeploy {
 
     public void setCreatedDate( String createdDate ) {
         this.createdDate = createdDate;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted( boolean completed ) {
+        this.completed = completed;
     }
 }

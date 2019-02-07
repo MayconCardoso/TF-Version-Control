@@ -18,7 +18,7 @@ public class GetRandomInstanceCase implements UseCase<List<Instance>, Instance> 
 
     @Override
     public Instance run( List<Instance> value ) {
-        int index = new Random().nextInt( value.size() - 1 );
+        int index = new Random().nextInt( value.size()  );
         return value.get( index );
     }
 }

@@ -28,6 +28,10 @@ public class ListInstanceActivity extends BaseMvvmActivity<ActivityListInstanceB
         registerObservables();
         setUpRecyclerView();
 
+        // Set event on adapter
+        mAdapter.setEvent( mViewModel::editInstance );
+
+        // Load itens
         mViewModel.loadInstances();
     }
 
@@ -52,7 +56,7 @@ public class ListInstanceActivity extends BaseMvvmActivity<ActivityListInstanceB
     }
 
     private void registerObservables() {
-        mViewModel.getObservable().mRegister.observe( this, ( __ ) -> mNavigator.goToRegisterInstance() );
+        mViewModel.getObservable().mRegister.observe( this, mNavigator::goToRegisterInstance );
         mViewModel.getObservable().mItens.observe( this, mAdapter::setItens );
     }
 

@@ -57,7 +57,7 @@ public class Deploy {
     }
 
     public synchronized void addInstance( Instance instance ){
-        if(instance == null){
+        if(instances == null){
             instances = new ArrayList<>();
         }
 

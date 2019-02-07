@@ -6,6 +6,8 @@ import br.com.accera.mobile.tradeforceupdate.data.appversion.datasource.AppVersi
 import br.com.accera.mobile.tradeforceupdate.data.appversion.datasource.AppVersionDatasourceImpl;
 import br.com.accera.mobile.tradeforceupdate.data.auth.datasource.AuthDatasource;
 import br.com.accera.mobile.tradeforceupdate.data.auth.datasource.AuthDatasourceImpl;
+import br.com.accera.mobile.tradeforceupdate.data.deploy.datasource.DeployDatasource;
+import br.com.accera.mobile.tradeforceupdate.data.deploy.datasource.DeployDatasourceImpl;
 import br.com.accera.mobile.tradeforceupdate.data.drawermenu.datasource.DrawerMenuDatasource;
 import br.com.accera.mobile.tradeforceupdate.data.drawermenu.datasource.DrawerMenuDatasourceImpl;
 import br.com.accera.mobile.tradeforceupdate.data.instance.datasource.InstanceDatasource;
@@ -35,4 +37,7 @@ public abstract class DatasourceModule {
 
     @Binds
     abstract InstanceDatasource provideInstanceDatasource( InstanceDatasourceImpl provider );
+
+    @Binds
+    abstract DeployDatasource provideDeployDatasource( DeployDatasourceImpl provider );
 }

@@ -13,7 +13,7 @@ import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
  * @author MAYCON CARDOSO on 15/01/2019.
  */
 public class ListInstanceObservables implements DataObservable {
-    public final SingleLiveEvent<Void> mRegister = new SingleLiveEvent<>();
+    public final SingleLiveEvent<Instance> mRegister = new SingleLiveEvent<>();
     public final MutableLiveData<List<Instance>> mItens = new MutableLiveData<>();
 
     @Inject

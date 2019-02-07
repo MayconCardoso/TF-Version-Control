@@ -53,8 +53,8 @@ public class RegisterInstanceViewModel extends BaseObservableViewModel<RegisterI
         } );
     }
 
-    public void register( String name, String dbName, String mdm, String countUsers, AppVersion version, InstanceOwner owner ) {
-        Instance instance = createRequest( name, dbName, mdm, countUsers, version, owner );
+    public void register( String name, String dbName, String mdm, String countUsers, AppVersion version, InstanceOwner owner, int updateGroup ) {
+        Instance instance = createRequest( name, dbName, mdm, countUsers, version, owner, updateGroup );
 
         cleanAllErrors();
 
@@ -99,11 +99,12 @@ public class RegisterInstanceViewModel extends BaseObservableViewModel<RegisterI
         return !valid;
     }
 
-    private Instance createRequest( String name, String dbName, String mdm, String countUsers, AppVersion version, InstanceOwner owner ) {
+    private Instance createRequest( String name, String dbName, String mdm, String countUsers, AppVersion version, InstanceOwner owner, int updateGroup ) {
         Instance request = new Instance();
         request.setName( name );
         request.setDbName( dbName );
         request.setMdm( mdm );
+        request.setUpdateGroup( updateGroup );
         request.setTotalUsuarios( countUsers.isEmpty() ? 0 : Integer.parseInt( countUsers ) );
         request.setCurrentVersion( version );
         request.setOwner( owner );
