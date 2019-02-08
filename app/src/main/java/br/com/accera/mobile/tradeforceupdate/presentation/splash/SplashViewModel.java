@@ -48,7 +48,7 @@ public class SplashViewModel extends BaseObservableViewModel<SplashObservables, 
 
     public void checkAuth() {
         RxCaseExecutor.execute( getLoogedUserCase )
-                .delay( 2, TimeUnit.SECONDS )
+                .delay( 1, TimeUnit.SECONDS )
                 .observeOn( AndroidSchedulers.mainThread() )
                 .subscribe( new SingleObserver<User>() {
                     @Override

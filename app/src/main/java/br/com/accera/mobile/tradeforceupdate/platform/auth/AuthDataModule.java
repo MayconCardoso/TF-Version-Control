@@ -14,5 +14,4 @@ public abstract class AuthDataModule {
     @Binds
     @Singleton
     abstract AuthSession provideAuthSession( AuthSessionImpl provider );
-
 }

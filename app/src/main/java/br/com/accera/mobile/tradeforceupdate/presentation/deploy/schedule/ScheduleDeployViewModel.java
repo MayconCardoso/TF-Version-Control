@@ -11,7 +11,7 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedba
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.cases.GetAppVersionsCase;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
-import br.com.accera.mobile.tradeforceupdate.domain.deploy.cases.ScheduleDeployCase;
+import br.com.accera.mobile.tradeforceupdate.domain.deploy.cases.ScheduleRandomDeployCase;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.CompletableObserver;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.ObservableObserver;
 import io.reactivex.disposables.Disposable;
@@ -22,12 +22,12 @@ import io.reactivex.disposables.Disposable;
  */
 public class ScheduleDeployViewModel extends BaseObservableViewModel<ScheduleDeployObservables, ScheduleDeployState> {
 
-    private ScheduleDeployCase mCreateCalendarCase;
+    private ScheduleRandomDeployCase mCreateCalendarCase;
     private GetAppVersionsCase mGetAppVersionsCase;
 
 
     @Inject
-    public ScheduleDeployViewModel( ScheduleDeployCase registerUserCase, GetAppVersionsCase getAppVersionsCase ) {
+    public ScheduleDeployViewModel( ScheduleRandomDeployCase registerUserCase, GetAppVersionsCase getAppVersionsCase ) {
         mCreateCalendarCase = addUseCase( registerUserCase );
         mGetAppVersionsCase = getAppVersionsCase;
     }
@@ -60,7 +60,7 @@ public class ScheduleDeployViewModel extends BaseObservableViewModel<ScheduleDep
         }
 
         // Run use case
-        RxCaseExecutor.execute( mCreateCalendarCase, new ScheduleDeployCase.Request(
+        RxCaseExecutor.execute( mCreateCalendarCase, new ScheduleRandomDeployCase.Request(
                 Integer.parseInt( countDeploys ),
                 Integer.parseInt( daysNecessary ),
                 Integer.parseInt( initialPercent ),

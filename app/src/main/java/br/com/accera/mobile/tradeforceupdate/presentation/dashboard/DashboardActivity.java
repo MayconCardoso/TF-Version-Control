@@ -28,6 +28,7 @@ public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
+        setSupportActionBar(mViewDataBinding.toolbar);
         registerObservables();
     }
 

@@ -19,13 +19,13 @@ import io.reactivex.Completable;
 /**
  * @author MAYCON CARDOSO on 04/02/2019.
  */
-public class ScheduleDeployCase extends CompletableUseCase<ScheduleDeployCase.Request> {
+public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomDeployCase.Request> {
     private InstanceRepository mRepository;
     private DeployRepository mDeployRepository;
     private CreateDeployCase mCreateDeployCase;
 
     @Inject
-    public ScheduleDeployCase( InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase ) {
+    public ScheduleRandomDeployCase( InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase ) {
         mRepository = userRepository;
         mDeployRepository = deployRepository;
         mCreateDeployCase = createDeployCase;
