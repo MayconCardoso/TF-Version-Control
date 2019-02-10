@@ -13,26 +13,17 @@ import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
  */
 public class CreateDeployCase {
 
-    private GetRandomInstanceCase mGetRandomInstanceCase;
-
     @Inject
-    public CreateDeployCase( GetRandomInstanceCase getRandomInstanceCase ) {
-        mGetRandomInstanceCase = getRandomInstanceCase;
+    public CreateDeployCase() {
     }
 
-    public Deploy run( String date, List<Instance> instances, int countOfInitialClients, AppVersion version ) {
+    public Deploy run( String date, List<Instance> instances, AppVersion version ) {
         Deploy deploy = new Deploy();
         deploy.setVersion( version );
         deploy.setDate( date );
         int countAffectUsers = 0;
 
-        for ( int count = 0; count < countOfInitialClients; count++ ) {
-            // Get random instance.
-            Instance instance = mGetRandomInstanceCase.run( instances );
-
-            // Remove it from array to don't repeat it in the next call.
-            instances.remove( instance );
-
+        for ( Instance instance : instances ) {
             // Sum total of affected users.
             countAffectUsers += instance.getTotalUsuarios();
 

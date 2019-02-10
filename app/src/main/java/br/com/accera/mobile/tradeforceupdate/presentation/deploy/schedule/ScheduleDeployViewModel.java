@@ -11,6 +11,7 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedba
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.cases.GetAppVersionsCase;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
+import br.com.accera.mobile.tradeforceupdate.domain.deploy.cases.ScheduleDeployByGroupCase;
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.cases.ScheduleRandomDeployCase;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.CompletableObserver;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.ObservableObserver;
@@ -22,13 +23,15 @@ import io.reactivex.disposables.Disposable;
  */
 public class ScheduleDeployViewModel extends BaseObservableViewModel<ScheduleDeployObservables, ScheduleDeployState> {
 
-    private ScheduleRandomDeployCase mCreateCalendarCase;
+    private ScheduleRandomDeployCase mScheduleRandomDeployCase;
+    private ScheduleDeployByGroupCase mDeployByGroupCase;
     private GetAppVersionsCase mGetAppVersionsCase;
 
 
     @Inject
-    public ScheduleDeployViewModel( ScheduleRandomDeployCase registerUserCase, GetAppVersionsCase getAppVersionsCase ) {
-        mCreateCalendarCase = addUseCase( registerUserCase );
+    public ScheduleDeployViewModel( ScheduleRandomDeployCase registerUserCase, ScheduleDeployByGroupCase deployByGroupCase, GetAppVersionsCase getAppVersionsCase ) {
+        mScheduleRandomDeployCase = addUseCase( registerUserCase );
+        mDeployByGroupCase = deployByGroupCase;
         mGetAppVersionsCase = getAppVersionsCase;
     }
 
@@ -55,17 +58,48 @@ public class ScheduleDeployViewModel extends BaseObservableViewModel<ScheduleDep
     public void register( AppVersion selectedAppVersion, String daysNecessary, String initialPercent, String countDeploys ) {
         cleanAllErrors();
 
+        // Is to update using group section.
+        if( mState.mUpdateTypeByGroup.get() ) {
+            scheduleByGroup( selectedAppVersion );
+        } else {
+            scheduleByRandom( selectedAppVersion, daysNecessary, initialPercent, countDeploys );
+        }
+    }
+
+    private void scheduleByGroup( AppVersion selectedAppVersion ) {
+        RxCaseExecutor.execute( mDeployByGroupCase, selectedAppVersion ).subscribe( getScheduleObserver() );
+    }
+
+    private void scheduleByRandom( AppVersion selectedAppVersion, String daysNecessary, String initialPercent, String countDeploys ) {
         if( isDataInvalid( daysNecessary, initialPercent, countDeploys ) ) {
             return;
         }
 
         // Run use case
-        RxCaseExecutor.execute( mCreateCalendarCase, new ScheduleRandomDeployCase.Request(
+        RxCaseExecutor.execute( mScheduleRandomDeployCase, new ScheduleRandomDeployCase.Request(
                 Integer.parseInt( countDeploys ),
                 Integer.parseInt( daysNecessary ),
                 Integer.parseInt( initialPercent ),
                 selectedAppVersion
-        ) ).subscribe( new CompletableObserver() {
+        ) ).subscribe( getScheduleObserver() );
+    }
+
+    private boolean isDataInvalid( String daysNecessary, String initialPercent, String countDeploys ) {
+        // Required fields
+        boolean valid = RequiredFieldValidation.check( mResourceUtil, countDeploys, mState.mCountDeployError );
+        valid &= RequiredFieldValidation.check( mResourceUtil, daysNecessary, mState.mCountNecessaryDaysError );
+        valid &= RequiredFieldValidation.check( mResourceUtil, initialPercent, mState.mInitialPercentError );
+        return !valid;
+    }
+
+    private void cleanAllErrors() {
+        mState.mCountNecessaryDaysError.set( "" );
+        mState.mInitialPercentError.set( "" );
+        mState.mCountDeployError.set( "" );
+    }
+
+    private CompletableObserver getScheduleObserver() {
+        return new CompletableObserver() {
             @Override
             public void onSubscribe( Disposable disposable ) {
                 getCompositeDisposable().add( disposable );
@@ -90,20 +124,6 @@ public class ScheduleDeployViewModel extends BaseObservableViewModel<ScheduleDep
             public void onAnyResponseEvent() {
                 mState.mLoading.set( false );
             }
-        } );
-    }
-
-    private boolean isDataInvalid( String daysNecessary, String initialPercent, String countDeploys ) {
-        // Required fields
-        boolean valid = RequiredFieldValidation.check( mResourceUtil, countDeploys, mState.mCountDeployError );
-        valid &= RequiredFieldValidation.check( mResourceUtil, daysNecessary, mState.mCountNecessaryDaysError );
-        valid &= RequiredFieldValidation.check( mResourceUtil, initialPercent, mState.mInitialPercentError );
-        return !valid;
-    }
-
-    private void cleanAllErrors() {
-        mState.mCountNecessaryDaysError.set( "" );
-        mState.mInitialPercentError.set( "" );
-        mState.mCountDeployError.set( "" );
+        };
     }
 }

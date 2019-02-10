@@ -40,74 +40,110 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Quantos dias operações preicisa?"
+                android:text="Forma de publicação"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/etDaysNecessary"
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/rgUpdateType"
+                android:checkedButton="@id/rbByGroup"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rbByGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grupo de atualização"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/rbByRandom"
+                    android:layout_height="wrap_content"
+                    android:text="Aleatória"/>
+            </RadioGroup>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5"
-                android:enabled="@{!viewModel.getState().mLoading}"
-                android:inputType="text"/>
+                android:visibility="@{viewModel.getState().mUpdateTypeByGroup ? View.GONE : View.VISIBLE}"
+                android:orientation="vertical">
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="@{viewModel.getState().mCountNecessaryDaysError}"
-                android:textColor="@android:color/holo_red_dark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Intervalo (dias)"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/etDaysNecessary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="7"
+                    android:enabled="@{!viewModel.getState().mLoading}"
+                    android:inputType="text"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Porcentagem inicial"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/etInitialPercent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="8"
-                android:enabled="@{!viewModel.getState().mLoading}"
-                android:inputType="text"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="@{viewModel.getState().mInitialPercentError}"
-                android:textColor="@android:color/holo_red_dark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@{viewModel.getState().mCountNecessaryDaysError}"
+                    android:textColor="@android:color/holo_red_dark"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Quantas publicações deve ocorrer?"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Porcentagem inicial"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/etCountDeploys"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="3"
-                android:enabled="@{!viewModel.getState().mLoading}"
-                android:inputType="text"/>
+                <EditText
+                    android:id="@+id/etInitialPercent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="8"
+                    android:enabled="@{!viewModel.getState().mLoading}"
+                    android:inputType="text"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@{viewModel.getState().mInitialPercentError}"
+                    android:textColor="@android:color/holo_red_dark"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="@{viewModel.getState().mCountDeployError}"
-                android:textColor="@android:color/holo_red_dark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Quantas publicações deve ocorrer?"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/etCountDeploys"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:enabled="@{!viewModel.getState().mLoading}"
+                    android:inputType="text"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@{viewModel.getState().mCountDeployError}"
+                    android:textColor="@android:color/holo_red_dark"/>
+            </LinearLayout>
 
 
             <ProgressBar

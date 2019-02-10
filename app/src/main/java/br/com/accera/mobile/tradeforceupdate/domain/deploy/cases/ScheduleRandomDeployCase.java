@@ -11,6 +11,7 @@ import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.Deploy;
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.ScheduleDeploy;
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.repository.DeployRepository;
+import br.com.accera.mobile.tradeforceupdate.domain.instance.cases.FilterInstanceRandomlyCase;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.InstanceOwner;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.repository.InstanceRepository;
@@ -23,18 +24,25 @@ public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomD
     private InstanceRepository mRepository;
     private DeployRepository mDeployRepository;
     private CreateDeployCase mCreateDeployCase;
+    private FilterInstanceRandomlyCase mFilterInstanceRandomlyCase;
+
 
     @Inject
-    public ScheduleRandomDeployCase( InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase ) {
+    public ScheduleRandomDeployCase( InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase, FilterInstanceRandomlyCase filterInstanceRandomlyCase ) {
         mRepository = userRepository;
         mDeployRepository = deployRepository;
         mCreateDeployCase = createDeployCase;
+        mFilterInstanceRandomlyCase = filterInstanceRandomlyCase;
     }
 
     @Override
     public Completable run( Request value ) {
         return Completable.defer( () -> {
-            List<String> daysToDeploy = new GetDaysToDeployCase().run( value.countDeploy, value.countNecessaryDays );
+            // Get days necessary to next deploy.
+            int daysNecessary = new GetNecessaryDaysToDeployCase().run();
+
+            // Get days that will have deploy.
+            List<String> daysToDeploy = new GetDaysToDeployCase().run( daysNecessary, value.countDeploy, value.countNecessaryDays );
 
             // Get all technology's instances.
             return mRepository.getAllInstancesByOwner( InstanceOwner.TECH.getOwner() )
@@ -60,21 +68,29 @@ public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomD
         int restOfClients = totalInstances - countOfInitialClients;
 
         // Add first deploy.
-        deploys.add( mCreateDeployCase.run( daysToDeploy.get( 0 ), instances, countOfInitialClients, version ) );
+        deploys.add( mCreateDeployCase.run(
+                daysToDeploy.get( 0 ),
+                mFilterInstanceRandomlyCase.run( countOfInitialClients, instances ),
+                version
+        ) );
 
         // Get count of clients of each deploy
         int countDrawnClientsOnEachDeploy = Math.round( restOfClients / daysToDeploy.size() - 1 );
 
         // Add other deploys, except the last one.
-        for(int daysIndex = 1; daysIndex < daysToDeploy.size() - 1; daysIndex++){
-            deploys.add( mCreateDeployCase.run( daysToDeploy.get( daysIndex ), instances, countDrawnClientsOnEachDeploy, version ) );
+        for ( int daysIndex = 1; daysIndex < daysToDeploy.size() - 1; daysIndex++ ) {
+            deploys.add( mCreateDeployCase.run(
+                    daysToDeploy.get( daysIndex ),
+                    mFilterInstanceRandomlyCase.run( countDrawnClientsOnEachDeploy, instances ),
+                    version
+            ) );
 
             // Decrement drawn clients.
             restOfClients -= countDrawnClientsOnEachDeploy;
         }
 
         // Add last deploy.
-        deploys.add( mCreateDeployCase.run( daysToDeploy.get( daysToDeploy.size() -1 ), instances, restOfClients, version ) );
+        deploys.add( mCreateDeployCase.run( daysToDeploy.get( daysToDeploy.size() - 1 ), mFilterInstanceRandomlyCase.run( restOfClients, instances ), version ) );
 
         // Create schedule
         ScheduleDeploy schedule = new ScheduleDeploy();

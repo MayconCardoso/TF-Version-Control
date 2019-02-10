@@ -11,6 +11,7 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.D
  */
 public class ScheduleDeployState implements DataState {
     public final ObservableBoolean mLoading = new ObservableBoolean( false );
+    public final ObservableBoolean mUpdateTypeByGroup = new ObservableBoolean( true );
     public final ObservableField<String> mInitialPercentError = new ObservableField<>();
     public final ObservableField<String> mCountDeployError = new ObservableField<>();
     public final ObservableField<String> mCountNecessaryDaysError = new ObservableField<>();

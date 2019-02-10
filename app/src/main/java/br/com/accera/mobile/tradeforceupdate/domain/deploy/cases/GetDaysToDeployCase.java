@@ -10,11 +10,11 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.util.DateUtil;
  */
 public class GetDaysToDeployCase {
 
-    public List<String> run( int daysToDeploy, int countDaysNecessary ) {
+    public List<String> run( int initialDays, int countOfDays, int interval) {
         List<String> response = new ArrayList<>();
 
-        for ( int deployDay = 1; deployDay <= daysToDeploy; deployDay++ ) {
-            response.add( getDay( deployDay * countDaysNecessary ) );
+        for ( int deployDay = 1; deployDay <= countOfDays; deployDay++ ) {
+            response.add( getDay( initialDays + (deployDay * interval) ) );
         }
 
         return response;

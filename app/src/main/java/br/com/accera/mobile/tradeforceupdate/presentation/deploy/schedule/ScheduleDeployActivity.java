@@ -20,6 +20,7 @@ public class ScheduleDeployActivity extends BaseMvvmActivity<ActivityScheduleDep
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         registerObservables();
+        registerListeners();
         mViewModel.loadVersions();
     }
 
@@ -35,6 +36,13 @@ public class ScheduleDeployActivity extends BaseMvvmActivity<ActivityScheduleDep
                         this, android.R.layout.simple_spinner_item, appVersions
                 ) )
         );
+    }
+
+    private void registerListeners() {
+        mViewDataBinding.rgUpdateType.setOnCheckedChangeListener( ( radioGroup, viewId ) ->
+                mViewModel.getState().mUpdateTypeByGroup.set(
+                        viewId == mViewDataBinding.rbByGroup.getId()
+                ) );
     }
 
     public void scheduleDeploy( View view ) {

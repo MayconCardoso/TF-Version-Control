@@ -1,4 +1,4 @@
-package br.com.accera.mobile.tradeforceupdate.domain.deploy.cases;
+package br.com.accera.mobile.tradeforceupdate.domain.instance.cases;
 
 import java.util.List;
 import java.util.Random;
