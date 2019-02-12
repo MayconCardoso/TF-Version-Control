@@ -42,6 +42,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.supportLibraryVersion"
     implementation "androidx.annotation:annotation:$rootProject.ext.supportLibraryVersion"
     implementation "com.google.android.material:material:$rootProject.ext.supportLibraryVersion"
+    implementation "com.android.support:design:28.0.0"
 
     //==============================================================================================
     // VIEW MODEL
@@ -68,7 +69,7 @@ dependencies {
     // FIREBASE
     //==============================================================================================
     implementation 'com.google.firebase:firebase-auth:16.1.0'
-    implementation 'com.google.firebase:firebase-firestore:18.0.0'
+    implementation 'com.google.firebase:firebase-firestore:18.0.1'
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
 

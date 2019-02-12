@@ -15,7 +15,7 @@ public abstract class EntityObserverCase<INPUT, OUTPUT> extends ObservableUseCas
 
     @Override
     public final Observable<OUTPUT> run( INPUT input ) {
-        return getObservable( input ).doOnSubscribe( disposable -> mDisposable = disposable );
+        return Observable.defer( () -> getObservable( input ).doOnSubscribe( disposable -> mDisposable = disposable ) );
     }
 
     @Override

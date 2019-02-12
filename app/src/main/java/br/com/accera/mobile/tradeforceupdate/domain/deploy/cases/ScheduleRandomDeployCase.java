@@ -95,6 +95,7 @@ public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomD
         // Create schedule
         ScheduleDeploy schedule = new ScheduleDeploy();
         schedule.setCreatedDate( DateUtil.getCurrentDate() );
+        schedule.setVersion( version );
         schedule.setDeploys( deploys );
         return schedule;
     }

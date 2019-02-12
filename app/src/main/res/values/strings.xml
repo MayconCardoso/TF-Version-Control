@@ -7,4 +7,6 @@
     <string name="waiting_approvement">Sua solicitacão foi realiazada. Por favor aguarde a aprovacao</string>
     <string name="user_request_approved">Sua solicitacão foi aprovada!</string>
     <string name="title_add">Novo</string>
+    <string name="title_filter">Filtrar</string>
+    <string name="title_screen_list_schedule_deploy">Cronograma</string>
 </resources>

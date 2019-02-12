@@ -8,6 +8,7 @@ import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion
  * @author MAYCON CARDOSO on 05/02/2019.
  */
 public class ScheduleDeploy {
+    private AppVersion version;
     private List<Deploy> deploys;
     private String createdDate;
     private boolean completed;
@@ -34,5 +35,13 @@ public class ScheduleDeploy {
 
     public void setCompleted( boolean completed ) {
         this.completed = completed;
+    }
+
+    public AppVersion getVersion() {
+        return version;
+    }
+
+    public void setVersion( AppVersion version ) {
+        this.version = version;
     }
 }

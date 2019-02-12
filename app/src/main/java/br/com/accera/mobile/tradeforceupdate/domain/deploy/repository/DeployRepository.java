@@ -12,4 +12,6 @@ import io.reactivex.Observable;
  */
 public interface DeployRepository {
     Completable scheduleDeploy( ScheduleDeploy scheduleDeploy);
+
+    Observable<ScheduleDeploy> getScheduleByVersionName( String versionName );
 }

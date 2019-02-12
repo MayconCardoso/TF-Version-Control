@@ -25,8 +25,8 @@
 
         <activity
             android:name=".presentation.dashboard.DashboardActivity"
-            android:theme="@style/Theme.Design.NoActionBar"
-            android:label="@string/title_screen_dashboard"/>
+            android:label="@string/title_screen_dashboard"
+            android:theme="@style/Theme.Design.NoActionBar"/>
 
         <activity
             android:name=".presentation.user.register.RegisterUserActivity"
@@ -43,15 +43,25 @@
         <activity
             android:name=".presentation.appversion.list.ListAppVersionActivity"
             android:label="@string/title_screen_versions"/>
+
         <activity
             android:name=".presentation.instance.register.RegisterInstanceActivity"
             android:label="@string/title_screen_register_instance"/>
- <activity
+
+        <activity
             android:name=".presentation.instance.list.ListInstanceActivity"
             android:label="@string/title_screen_list_instance"/>
- <activity
+
+        <activity
             android:name=".presentation.deploy.schedule.ScheduleDeployActivity"
             android:label="@string/title_screen_schedule_deploy"/>
+
+
+        <activity
+            android:name=".presentation.deploy.list.ListScheduleActivity"
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:label="@string/title_screen_list_schedule_deploy"/>
+
 
         <activity
             android:name=".presentation.error.ErrorActivity"

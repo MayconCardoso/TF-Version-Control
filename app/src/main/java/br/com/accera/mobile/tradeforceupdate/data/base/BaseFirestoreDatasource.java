@@ -42,4 +42,6 @@ public class BaseFirestoreDatasource<ENTITY> {
     public Observable<List<ENTITY>> getAll(Class<ENTITY> entityClass, Query query) {
         return RxFirestoreObserver.create( entityClass ).observeCollection( query );
     }
+
+
 }

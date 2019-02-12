@@ -18,10 +18,14 @@ public class DateUtil {
     public static String addDaysMappingToString( int daysAfeterToday ) {
         Calendar date = Calendar.getInstance();
         date.add( Calendar.DAY_OF_MONTH, daysAfeterToday );
-        return formatToString( date.getTime() );
+        return formatToString( date.getTime(),  "dd-MM-yyyy");
     }
 
     private static String formatToString( Date date ) {
-        return new SimpleDateFormat( DEFAULT_FORMAT, Locale.getDefault() ).format( date );
+        return formatToString( date, DEFAULT_FORMAT );
+    }
+
+    private static String formatToString( Date date, String format ) {
+        return new SimpleDateFormat( format, Locale.getDefault() ).format( date );
     }
 }

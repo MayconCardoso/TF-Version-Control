@@ -6,10 +6,12 @@ import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.Re
 import br.com.accera.mobile.tradeforceupdate.presentation.appversion.register.RegisterAppVersionModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.auth.AuthActivityModule;
-import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardActivityModule;
+import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListScheduleActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListScheduleModule;
+import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceModule;
@@ -59,4 +61,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector( modules = {ScheduleDeployModule.class} )
     abstract ScheduleDeployActivity bindRegisterCalendarActivity();
+
+    @ContributesAndroidInjector( modules = {ListScheduleModule.class} )
+    abstract ListScheduleActivity bindListScheduleActivity();
 }
