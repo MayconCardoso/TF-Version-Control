@@ -7,6 +7,7 @@ public class DrawerItem {
     private String title;
     private String icon;
     private int ordem;
+    private String target;
 
     public String getTitle() {
         return title;
@@ -30,5 +31,13 @@ public class DrawerItem {
 
     public void setOrdem( int ordem ) {
         this.ordem = ordem;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget( String target ) {
+        this.target = target;
     }
 }

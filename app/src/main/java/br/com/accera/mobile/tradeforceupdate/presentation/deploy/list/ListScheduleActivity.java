@@ -75,6 +75,7 @@ public class ListScheduleActivity extends BaseMvvmActivity<ActivityListScheduleB
         mPagerAdapter.notifyDataSetChanged();
 
         // Set version
+        mViewDataBinding.itemVersion.tvAction.setText("Publicar");
         mViewDataBinding.itemVersion.setItem( scheduleDeploy.getVersion() );
     }
 

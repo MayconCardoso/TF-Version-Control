@@ -9,6 +9,7 @@ import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.rx.RxCaseExec
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.domain.auth.cases.GetLoggedUserCase;
 import br.com.accera.mobile.tradeforceupdate.domain.auth.exception.LoggedUserEmpty;
+import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.cases.CreateDrawer;
 import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
 import br.com.accera.mobile.tradeforceupdate.platform.exception.ErroHandler;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.SingleObserver;
@@ -24,6 +25,7 @@ public class SplashViewModel extends BaseObservableViewModel<SplashObservables, 
     // OBJETOS
     //==============================================================================================
     private final GetLoggedUserCase getLoogedUserCase;
+    private final CreateDrawer mCreateDrawer;
     //==============================================================================================
     //
     //
@@ -34,8 +36,9 @@ public class SplashViewModel extends BaseObservableViewModel<SplashObservables, 
     //==============================================================================================
 
     @Inject
-    public SplashViewModel( GetLoggedUserCase isUserLoggedCase ) {
+    public SplashViewModel( GetLoggedUserCase isUserLoggedCase, CreateDrawer createDrawer ) {
         getLoogedUserCase = addUseCase( isUserLoggedCase );
+        mCreateDrawer = createDrawer;
     }
     //==============================================================================================
     //
@@ -47,7 +50,8 @@ public class SplashViewModel extends BaseObservableViewModel<SplashObservables, 
     //==============================================================================================
 
     public void checkAuth() {
-        RxCaseExecutor.execute( getLoogedUserCase )
+//        RxCaseExecutor.execute( getLoogedUserCase )
+        RxCaseExecutor.execute( mCreateDrawer ).andThen( RxCaseExecutor.execute( getLoogedUserCase ) )
                 .delay( 1, TimeUnit.SECONDS )
                 .observeOn( AndroidSchedulers.mainThread() )
                 .subscribe( new SingleObserver<User>() {

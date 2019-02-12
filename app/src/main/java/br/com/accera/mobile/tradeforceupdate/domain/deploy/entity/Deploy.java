@@ -15,6 +15,7 @@ public class Deploy {
     private int totalClients;
     private List<Instance> instances;
     private AppVersion version;
+    private boolean done;
 
     public String getDate() {
         return date;
@@ -54,6 +55,14 @@ public class Deploy {
 
     public void setVersion( AppVersion version ) {
         this.version = version;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone( boolean done ) {
+        this.done = done;
     }
 
     public synchronized void addInstance( Instance instance ){

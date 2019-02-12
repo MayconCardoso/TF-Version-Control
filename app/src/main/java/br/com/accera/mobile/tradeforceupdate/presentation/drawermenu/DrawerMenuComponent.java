@@ -1,13 +1,18 @@
 package br.com.accera.mobile.tradeforceupdate.presentation.drawermenu;
 
+import android.content.Intent;
 import android.view.Gravity;
+import android.view.View;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.List;
 
@@ -17,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.DrawerItem;
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.DrawerSection;
@@ -75,8 +81,6 @@ public class DrawerMenuComponent implements LifecycleObserver {
                 .withAccountHeader( mAccountHeader )
                 .withActionBarDrawerToggleAnimated( true )
                 .withDrawerGravity( Gravity.START )
-                // .withSelectedItem( selecion )
-                // .withOnDrawerItemClickListener( baseOnClickItem() )
                 .build();
     }
 
@@ -158,18 +162,12 @@ public class DrawerMenuComponent implements LifecycleObserver {
         }
     }
 
-    private PrimaryDrawerItem createItem( DrawerItem drawerItem ) {
-
-        // Id da String
-//        VectorDrawableCompat icon = mIconsCacheUtils.getVectorByName( drawerItem.getIconName() );
-
-
+    private PrimaryDrawerItem createItem( final DrawerItem drawerItem ) {
         // Cria o item
         PrimaryDrawerItem item = new PrimaryDrawerItem()
                 .withName( drawerItem.getTitle() )
                 .withTag( drawerItem )
-               // .withIcon( icon )
-                //.withSetSelected( mNameSelecion.equals( drawerItem.getStringName() ) )
+                .withIcon( GoogleMaterial.Icon.valueOf( drawerItem.getIcon() ) )
                 .withSelectable( true );
 
         mNavigationDrawer.addItem( item );

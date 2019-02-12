@@ -1,5 +1,7 @@
 package br.com.accera.mobile.tradeforceupdate.data.drawermenu.datasource;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.Drawer;
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.DrawerHeader;
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.DrawerItem;
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.DrawerSection;
+import br.com.accera.mobile.tradeforceupdate.presentation.dashboard.DashboardActivity;
 
 /**
  * @author MAYCON CARDOSO on 29/01/2019.
@@ -44,7 +47,7 @@ public class DrawerMenuCreator {
         DrawerItem item = new DrawerItem();
         item.setOrdem( 0 );
         item.setTitle( "Início" );
-        item.setIcon( "ic_teste" );
+        item.setIcon( GoogleMaterial.Icon.gmd_dashboard.getName() );
 
 
         List<DrawerItem> items = new ArrayList<>();
@@ -62,7 +65,7 @@ public class DrawerMenuCreator {
         DrawerItem item = new DrawerItem();
         item.setOrdem( 0 );
         item.setTitle( "Início" );
-        item.setIcon( "ic_teste" );
+        item.setIcon( GoogleMaterial.Icon.gmd_dashboard.getName() );
 
         List<DrawerItem> items = new ArrayList<>();
         items.add( item );
@@ -79,7 +82,9 @@ public class DrawerMenuCreator {
         DrawerItem item = new DrawerItem();
         item.setOrdem( 0 );
         item.setTitle( "Início" );
-        item.setIcon( "ic_teste" );
+        item.setIcon( GoogleMaterial.Icon.gmd_account_balance_wallet.getName() );
+        item.setTarget( DashboardActivity.class.getName() );
+
 
 
         List<DrawerItem> items = new ArrayList<>();
