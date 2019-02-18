@@ -14,6 +14,7 @@ import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuV
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.splash.SplashViewModel;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.register.RegisterUserViewModel;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.waitingapprovement.WaitingApprovementViewModel;
 import dagger.Binds;
@@ -95,5 +96,10 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey( ListScheduleViewModel.class )
     abstract ViewModel bindListScheduleViewModel( ListScheduleViewModel viewModel );
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( NeedApprovementViewModel.class )
+    abstract ViewModel bindNeedApprovementViewModel( NeedApprovementViewModel viewModel );
 
 }

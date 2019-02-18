@@ -1,5 +1,7 @@
 package br.com.accera.mobile.tradeforceupdate.data.user.datasource;
 
+import java.util.List;
+
 import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -13,4 +15,6 @@ public interface UserDatasource {
     Maybe<User> getUserByEmail( String email );
 
     Observable<User> observeUser( String email );
+    Observable<List<User>> getAllUsers(boolean authorized);
+    Single<User> updateUser(User user);
 }

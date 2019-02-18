@@ -1,5 +1,7 @@
 package br.com.accera.mobile.tradeforceupdate.data.user.repository;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.com.accera.mobile.tradeforceupdate.data.user.datasource.UserDatasource;
@@ -34,5 +36,15 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Observable<User> observerUser( String email ) {
         return mUserDatasource.observeUser( email );
+    }
+
+    @Override
+    public Observable<List<User>> getAllUsers(boolean authorized) {
+        return mUserDatasource.getAllUsers(authorized);
+    }
+
+    @Override
+    public Single<User> updateUser(User user) {
+        return mUserDatasource.updateUser(user);
     }
 }

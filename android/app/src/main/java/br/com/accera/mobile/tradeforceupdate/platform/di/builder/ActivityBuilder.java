@@ -19,6 +19,8 @@ import br.com.accera.mobile.tradeforceupdate.presentation.instance.register.Regi
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.splash.SplashActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.splash.SplashActivityModule;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.register.RegisterUserActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.register.RegisterUserActivityModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.waitingapprovement.WaitingApprovementActivity;
@@ -64,4 +66,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector( modules = {ListScheduleModule.class} )
     abstract ListScheduleActivity bindListScheduleActivity();
+
+    @ContributesAndroidInjector( modules = {NeedApprovementModule.class} )
+    abstract NeedApprovementActivity bindListNeedApprovementActivity();
 }

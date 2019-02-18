@@ -13,44 +13,55 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:titleTextColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@android:color/white" />
 
         <Button
             android:id="@+id/button4"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:onClick="registerVersion"
-            android:text="Versao"
-            />
+            android:text="Versao" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:onClick="registerClient"
-            android:text="CLIENTE"
-            />
+            android:text="CLIENTE" />
 
         <Button
             android:id="@+id/button5"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:onClick="registerCalendar"
-            android:text="Calendário"
-            />
+            android:text="Calendário" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="userAuthorize"
+            android:text="Autorizar" />
 
     </LinearLayout>
 </layout>

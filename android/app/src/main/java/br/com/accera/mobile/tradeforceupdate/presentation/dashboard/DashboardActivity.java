@@ -19,6 +19,7 @@ import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListSchedu
 import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuComponent;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementActivity;
 
 /**
  * @author MAYCON CARDOSO on 07/01/2019.
@@ -73,5 +74,9 @@ public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding
 
     public void registerCalendar( View view ) {
         startActivity( new Intent( this, ListScheduleActivity.class ) );
+    }
+
+    public void userAuthorize( View view ) {
+        startActivity( new Intent( this, NeedApprovementActivity.class ) );
     }
 }

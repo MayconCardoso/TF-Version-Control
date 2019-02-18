@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="br.com.accera.mobile.tradeforceupdate">
+    package="br.com.accera.mobile.tradeforceupdate">
 
     <application
         android:name=".platform.App"
@@ -14,59 +14,48 @@
             android:name=".presentation.splash.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.auth.AuthActivity"
-            android:label="@string/title_screen_auth"/>
-
+            android:label="@string/title_screen_auth" />
         <activity
             android:name=".presentation.dashboard.DashboardActivity"
             android:label="@string/title_screen_dashboard"
-            android:theme="@style/Theme.Design.LNoActionBar"/>
-
+            android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".presentation.user.register.RegisterUserActivity"
-            android:label="@string/title_screen_register_user"/>
-
+            android:label="@string/title_screen_register_user" />
         <activity
             android:name=".presentation.appversion.register.RegisterAppVersionActivity"
-            android:label="@string/title_screen_register_app_version"/>
-
+            android:label="@string/title_screen_register_app_version" />
         <activity
             android:name=".presentation.user.waitingapprovement.WaitingApprovementActivity"
-            android:label="@string/title_screen_waiting_approvement"/>
-
+            android:label="@string/title_screen_waiting_approvement" />
         <activity
             android:name=".presentation.appversion.list.ListAppVersionActivity"
-            android:label="@string/title_screen_versions"/>
-
+            android:label="@string/title_screen_versions" />
         <activity
             android:name=".presentation.instance.register.RegisterInstanceActivity"
-            android:label="@string/title_screen_register_instance"/>
-
+            android:label="@string/title_screen_register_instance" />
         <activity
             android:name=".presentation.instance.list.ListInstanceActivity"
-            android:label="@string/title_screen_list_instance"/>
-
+            android:label="@string/title_screen_list_instance" />
         <activity
             android:name=".presentation.deploy.schedule.ScheduleDeployActivity"
-            android:label="@string/title_screen_schedule_deploy"/>
-
-
+            android:label="@string/title_screen_schedule_deploy" />
         <activity
             android:name=".presentation.deploy.list.ListScheduleActivity"
-            android:theme="@style/Theme.Design.NoActionBar"
-            android:label="@string/title_screen_list_schedule_deploy"/>
-
-
+            android:label="@string/title_screen_list_schedule_deploy"
+            android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".presentation.error.ErrorActivity"
-            android:label="@string/title_screen_error"/>
+            android:label="@string/title_screen_error" />
 
+        <activity android:name=".presentation.user.needapprovement.NeedApprovementActivity" />
     </application>
 
 </manifest>
