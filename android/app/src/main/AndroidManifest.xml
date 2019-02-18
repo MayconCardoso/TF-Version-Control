@@ -26,7 +26,7 @@
         <activity
             android:name=".presentation.dashboard.DashboardActivity"
             android:label="@string/title_screen_dashboard"
-            android:theme="@style/Theme.Design.LNoActionBar"/>
+            android:theme="@style/Theme.Design.NoActionBar"/>
 
         <activity
             android:name=".presentation.user.register.RegisterUserActivity"
