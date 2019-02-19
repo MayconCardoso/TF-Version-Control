@@ -15,11 +15,9 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.B
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityDashboardBinding;
 import br.com.accera.mobile.tradeforceupdate.presentation.appversion.list.ListAppVersionActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListScheduleActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListScheduleViewModel;
-import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuComponent;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.list.ListUserActivity;
 
 /**
  * @author MAYCON CARDOSO on 07/01/2019.
@@ -77,6 +75,6 @@ public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding
     }
 
     public void userAuthorize( View view ) {
-        startActivity( new Intent( this, NeedApprovementActivity.class ) );
+        startActivity( new Intent( this, ListUserActivity.class ) );
     }
 }

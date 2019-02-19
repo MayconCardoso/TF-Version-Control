@@ -1,9 +1,9 @@
-package br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement;
+package br.com.accera.mobile.tradeforceupdate.presentation.user.permissions;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,21 +13,21 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.accera.mobile.tradeforceupdate.R;
-import br.com.accera.mobile.tradeforceupdate.databinding.ItemInstanceBinding;
-import br.com.accera.mobile.tradeforceupdate.databinding.ItemNeedApprovementBinding;
-import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
+import br.com.accera.mobile.tradeforceupdate.databinding.ItemListUserBinding;
+import br.com.accera.mobile.tradeforceupdate.databinding.ItemPermissionBinding;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.entity.Permission;
 import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
 
 /**
- * @author MAYCON CARDOSO on 02/02/2019.
+ * Created by Rafael Spitaliere on 19/02/19.
  */
-public class NeedApprovementAdapter extends RecyclerView.Adapter<NeedApprovementAdapter.ViewHolder> {
-    private List<User> mItens;
+public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.ViewHolder> {
+    private List<Permission> mItens;
     private LayoutInflater mLayoutInflater;
     private Event mEvent;
 
     @Inject
-    public NeedApprovementAdapter() {
+    public PermissionAdapter() {
     }
 
     @NonNull
@@ -36,15 +36,15 @@ public class NeedApprovementAdapter extends RecyclerView.Adapter<NeedApprovement
         if( mLayoutInflater == null ) {
             mLayoutInflater = LayoutInflater.from( parent.getContext() );
         }
-        ItemNeedApprovementBinding binding = DataBindingUtil.inflate( mLayoutInflater, R.layout.item_need_approvement, parent, false );
+        ItemPermissionBinding binding = DataBindingUtil.inflate( mLayoutInflater, R.layout.item_permission, parent, false );
         return new ViewHolder( binding );
     }
 
     @Override
     public void onBindViewHolder( @NonNull ViewHolder holder, int position ) {
-        User item = mItens.get( position );
+        Permission item = mItens.get( position );
         holder.binding.setItem( item );
-        holder.binding.buttonApprovement.setOnClickListener( view -> mEvent.edit( item ) );
+        holder.binding.permissionCheck.setOnClickListener(v -> item.setActive(holder.binding.permissionCheck.isChecked()));
         holder.binding.executePendingBindings();
     }
 
@@ -53,11 +53,11 @@ public class NeedApprovementAdapter extends RecyclerView.Adapter<NeedApprovement
         return mItens == null ? 0 : mItens.size();
     }
 
-    public void setItens( List<User> users ) {
+    public void setItens( List<Permission> permissions ) {
 
         if( mItens == null ) {
-            mItens = users;
-            notifyItemRangeInserted( 0, users.size() );
+            mItens = permissions;
+            notifyItemRangeInserted( 0, permissions.size() );
             return;
         }
 
@@ -69,33 +69,32 @@ public class NeedApprovementAdapter extends RecyclerView.Adapter<NeedApprovement
 
             @Override
             public int getNewListSize() {
-                return users.size();
+                return permissions.size();
             }
 
             @Override
             public boolean areItemsTheSame( int oldItemPosition, int newItemPosition ) {
-                User old = mItens.get( oldItemPosition );
-                User newValue = users.get( newItemPosition );
-                return old.getEmail().equals( newValue.getEmail() );
+                Permission old = mItens.get( oldItemPosition );
+                Permission newValue = permissions.get( newItemPosition );
+                return old.getAction().equals( newValue.getAction() );
             }
 
             @Override
             public boolean areContentsTheSame( int oldItemPosition, int newItemPosition ) {
-                User old = mItens.get( oldItemPosition );
-                User newValue = users.get( newItemPosition );
-                return old.getEmail().equals( newValue.getEmail() )
-                        && old.getFirstName().equals( newValue.getFirstName() )
-                        && old.getLastName() == newValue.getLastName();
+                Permission old = mItens.get( oldItemPosition );
+                Permission newValue = permissions.get( newItemPosition );
+                return old.getAction().equals( newValue.getAction() )
+                        && old.getDescription().equals( newValue.getDescription() )
+                        && old.getTitle().equals(newValue.getTitle());
             }
         } );
-        mItens = users;
+        mItens = permissions;
         diffResult.dispatchUpdatesTo( this );
     }
 
     public void setEvent( Event event ) {
         mEvent = event;
     }
-
     //==============================================================================================
     //
     //
@@ -105,15 +104,16 @@ public class NeedApprovementAdapter extends RecyclerView.Adapter<NeedApprovement
     // INNER CLASS
     //==============================================================================================
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final ItemNeedApprovementBinding binding;
+        private final ItemPermissionBinding binding;
 
-        public ViewHolder( final ItemNeedApprovementBinding itemBinding ) {
+        public ViewHolder( final ItemPermissionBinding itemBinding ) {
             super( itemBinding.getRoot() );
             this.binding = itemBinding;
         }
     }
 
     public interface Event {
-        void edit(User item);
+        void setUserAccess(User item);
+        void setUserPermission(User item);
     }
 }

@@ -48,6 +48,14 @@ public class RxFirestoreObserver<VALUE> {
     }
 
     public Observable<List<VALUE>> observeCollection( Query query ) {
+        return internalCollectionLoader(query, false);
+    }
+
+    public Observable<List<VALUE>> getCollectionValue( Query query ) {
+        return internalCollectionLoader(query, true);
+    }
+
+    private Observable<List<VALUE>> internalCollectionLoader( Query query, boolean getOnlyFirst ) {
         return Observable.defer( () -> Observable.<List<VALUE>>create( emitter -> {
             mRegistrationCallback = query.addSnapshotListener( ( documentSnapshot, e ) -> {
                 if( emitter == null || emitter.isDisposed() ) return;
@@ -67,6 +75,9 @@ public class RxFirestoreObserver<VALUE> {
                 }
 
                 emitter.onNext( values );
+                if (getOnlyFirst){
+                    emitter.onComplete();
+                }
             } );
         } ).doOnDispose( () -> {
             if( mRegistrationCallback != null ) {

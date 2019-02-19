@@ -55,7 +55,8 @@
             android:name=".presentation.error.ErrorActivity"
             android:label="@string/title_screen_error" />
 
-        <activity android:name=".presentation.user.needapprovement.NeedApprovementActivity" />
+        <activity android:name=".presentation.user.list.ListUserActivity" />
+        <activity android:name=".presentation.user.permissions.PermissionActivity" />
     </application>
 
 </manifest>
