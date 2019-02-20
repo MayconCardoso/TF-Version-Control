@@ -36,7 +36,6 @@ public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public void clear() {
         mPages.clear();
-        notifyDataSetChanged();
     }
 
     public void add( Pager pager ) {

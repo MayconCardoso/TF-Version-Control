@@ -10,4 +10,8 @@
     <string name="title_filter">Filtrar</string>
     <string name="title_screen_list_schedule_deploy">Cronograma</string>
     <string name="space">\u0020</string>
+    <string name="get_a_version">Escolha uma versão</string>
+    <string name="action_publish">Publicar</string>
+    <string name="deploy_sucessfull">Deploy realizado</string>
+    <string name="sucesso">Sucesso!</string>
 </resources>

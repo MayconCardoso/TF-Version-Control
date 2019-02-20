@@ -3,6 +3,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="com.google.android.material.tabs.TabLayout"/>
 
         <variable
             name="viewModel"
@@ -25,9 +26,10 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
+            android:visibility="@{viewModel.getState().mLoading? View.GONE : View.VISIBLE}"
             android:background="@color/colorPrimary"
             android:layout_height="wrap_content"
-            app:tabMode="fixed"/>
+            app:tabMode="@{viewModel.getObservable().mSchedule.getValue().deploys.size() > 3 ? TabLayout.MODE_SCROLLABLE : TabLayout.MODE_FIXED}"/>
 
         <ProgressBar
             android:layout_width="wrap_content"

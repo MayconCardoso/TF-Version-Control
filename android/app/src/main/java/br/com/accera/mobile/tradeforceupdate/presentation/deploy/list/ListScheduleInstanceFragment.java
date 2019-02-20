@@ -25,7 +25,9 @@ public class ListScheduleInstanceFragment extends Fragment {
         FragmentScheduleInstanceBinding binding = FragmentScheduleInstanceBinding.inflate( inflater );
 
         ListScheduleInstanceAdapter mAdapter = new ListScheduleInstanceAdapter();
-        mAdapter.setItens( mInstances );
+        if(mInstances != null){
+            mAdapter.setItens( mInstances );
+        }
 
         RecyclerView recycler = binding.appRecycler;
         recycler.setLayoutManager( new LinearLayoutManager( getActivity() ) );

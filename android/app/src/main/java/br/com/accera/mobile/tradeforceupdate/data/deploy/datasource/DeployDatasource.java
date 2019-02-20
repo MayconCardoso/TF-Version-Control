@@ -1,7 +1,9 @@
 package br.com.accera.mobile.tradeforceupdate.data.deploy.datasource;
 
+import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.Deploy;
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.ScheduleDeploy;
 import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
 
 /**
@@ -11,4 +13,6 @@ public interface DeployDatasource {
     Completable scheduleDeploy( ScheduleDeploy scheduleDeploy );
 
     Observable<ScheduleDeploy> getScheduleByVersionName( String versionName );
+
+    CompletableSource doDeploy( Deploy deploy );
 }

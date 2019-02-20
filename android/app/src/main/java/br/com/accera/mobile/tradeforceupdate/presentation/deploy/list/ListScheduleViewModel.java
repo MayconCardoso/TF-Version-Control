@@ -4,12 +4,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.rx.RxCaseExecutor;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedback.AlertMessage;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.cases.GetAppVersionsCase;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
+import br.com.accera.mobile.tradeforceupdate.domain.deploy.cases.DoDeployCase;
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.cases.GetScheduleByVersionCase;
+import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.Deploy;
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.ScheduleDeploy;
+import br.com.accera.mobile.tradeforceupdate.platform.rx.CompletableObserver;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.ObservableObserver;
 import io.reactivex.disposables.Disposable;
 
@@ -21,11 +26,13 @@ public class ListScheduleViewModel extends BaseObservableViewModel<ListScheduleO
 
     private GetAppVersionsCase mGetAppVersionsCase;
     private GetScheduleByVersionCase mGetScheduleByVersionCase;
+    private DoDeployCase mDoDeployCase;
 
     @Inject
-    public ListScheduleViewModel( GetAppVersionsCase getAppVersionsCase, GetScheduleByVersionCase getScheduleByVersionCase ) {
+    public ListScheduleViewModel( GetAppVersionsCase getAppVersionsCase, GetScheduleByVersionCase getScheduleByVersionCase, DoDeployCase doDeployCase ) {
         mGetAppVersionsCase = getAppVersionsCase;
         mGetScheduleByVersionCase = getScheduleByVersionCase;
+        mDoDeployCase = doDeployCase;
     }
 
     public void goToRegisterPage() {
@@ -51,14 +58,10 @@ public class ListScheduleViewModel extends BaseObservableViewModel<ListScheduleO
         } );
     }
 
-    public void setSelectedVersion( AppVersion version ){
-        mState.mSelectedVersion.set( version );
-        loadSchedule();
-    }
-
     private void loadSchedule() {
         // Cancel open running.
         mGetAppVersionsCase.cancel();
+        mState.mCurrentDeploy.set( null );
 
         // Load schedule to version.
         RxCaseExecutor.execute( mGetScheduleByVersionCase, mState.mSelectedVersion.get() ).subscribe( new ObservableObserver<ScheduleDeploy>() {
@@ -70,6 +73,7 @@ public class ListScheduleViewModel extends BaseObservableViewModel<ListScheduleO
 
             @Override
             public void onNextEvent( ScheduleDeploy scheduleDeploy ) {
+                mState.mCurrentDeploy.set( scheduleDeploy.getDeploys().get( 0 ) );
                 mObservable.mSchedule.setValue( scheduleDeploy );
             }
 
@@ -80,7 +84,35 @@ public class ListScheduleViewModel extends BaseObservableViewModel<ListScheduleO
         } );
     }
 
-    private void showScheduleData( ScheduleDeploy scheduleDeploy ) {
+    public void setSelectedVersion( AppVersion version ){
+        mState.mSelectedVersion.set( version );
+        loadSchedule();
+    }
 
+    public void setSelectedDeploy( Deploy deploy ){
+        mState.mCurrentDeploy.set( deploy );
+    }
+
+    public void doDeploy( Deploy deploy ) {
+        RxCaseExecutor.execute( mDoDeployCase, deploy ).subscribe( new CompletableObserver() {
+            @Override
+            public void onSubscribe( Disposable disposable ) {
+                getCompositeDisposable().add( disposable );
+                mState.mLoading.set( true );
+            }
+
+            @Override
+            public void onEventCompleted() {
+                getAlertFeedback().postValue( new AlertMessage.Builder()
+                        .setTitle( R.string.sucesso )
+                        .setMessage( R.string.deploy_sucessfull )
+                );
+            }
+
+            @Override
+            public void onAnyResponseEvent() {
+                mState.mLoading.set( false );
+            }
+        } );
     }
 }
