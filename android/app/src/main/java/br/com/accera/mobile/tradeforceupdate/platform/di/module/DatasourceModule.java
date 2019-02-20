@@ -12,6 +12,8 @@ import br.com.accera.mobile.tradeforceupdate.data.drawermenu.datasource.DrawerMe
 import br.com.accera.mobile.tradeforceupdate.data.drawermenu.datasource.DrawerMenuDatasourceImpl;
 import br.com.accera.mobile.tradeforceupdate.data.instance.datasource.InstanceDatasource;
 import br.com.accera.mobile.tradeforceupdate.data.instance.datasource.InstanceDatasourceImpl;
+import br.com.accera.mobile.tradeforceupdate.data.permission.datasource.PermissionDatasource;
+import br.com.accera.mobile.tradeforceupdate.data.permission.datasource.PermissionDatasourceImpl;
 import br.com.accera.mobile.tradeforceupdate.data.user.datasource.UserDatasource;
 import br.com.accera.mobile.tradeforceupdate.data.user.datasource.UserDatasourceImpl;
 import dagger.Binds;
@@ -40,4 +42,7 @@ public abstract class DatasourceModule {
 
     @Binds
     abstract DeployDatasource provideDeployDatasource( DeployDatasourceImpl provider );
+
+    @Binds
+    abstract PermissionDatasource providePermissionDatasource(PermissionDatasourceImpl provider );
 }

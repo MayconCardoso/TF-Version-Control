@@ -19,8 +19,10 @@ import br.com.accera.mobile.tradeforceupdate.presentation.instance.register.Regi
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.splash.SplashActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.splash.SplashActivityModule;
-import br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementModule;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.list.ListUserActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.list.ListUserModule;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.permissions.PermissionActivity;
+import br.com.accera.mobile.tradeforceupdate.presentation.user.permissions.PermissionModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.register.RegisterUserActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.register.RegisterUserActivityModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.waitingapprovement.WaitingApprovementActivity;
@@ -67,6 +69,9 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector( modules = {ListScheduleModule.class} )
     abstract ListScheduleActivity bindListScheduleActivity();
 
-    @ContributesAndroidInjector( modules = {NeedApprovementModule.class} )
-    abstract NeedApprovementActivity bindListNeedApprovementActivity();
+    @ContributesAndroidInjector( modules = {ListUserModule.class} )
+    abstract ListUserActivity bindListUserActivity();
+
+    @ContributesAndroidInjector( modules = {PermissionModule.class} )
+    abstract PermissionActivity bindPermissionActivity();
 }

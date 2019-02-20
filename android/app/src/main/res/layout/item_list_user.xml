@@ -28,6 +28,31 @@
                 android:padding="12dp"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Quantidade de usuários"
+                        app:srcCompat="@drawable/ic_group_black_24dp" />
+
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text='@{String.valueOf(item.totalUsuarios)}'-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:textStyle="bold"-->
+                    <!--tools:text="6994"/>-->
+
+
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,39 +101,31 @@
                             android:textStyle="bold"
                             tools:text="ADM"/>
 
-                        <Button
+                        <LinearLayout
                             android:layout_gravity="right"
-                            android:id="@+id/buttonApprovement"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text='@{item.isAuthorized()? "Revogar" : "Autorizar"}' />
-                    </LinearLayout>
+                            android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                            <Button
+                                android:id="@+id/buttonPermission"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Permissões" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="Quantidade de usuários"
-                            app:srcCompat="@drawable/ic_group_black_24dp"/>
+                            <Button
 
+                                android:id="@+id/buttonApprovement"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text='@{item.isAuthorized()? "Revogar" : "Autorizar"}' />
 
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text='@{String.valueOf(item.totalUsuarios)}'-->
-                            <!--android:textColor="@android:color/black"-->
-                            <!--android:textStyle="bold"-->
-                            <!--tools:text="6994"/>-->
-
-
-
+                        </LinearLayout>
 
                     </LinearLayout>
+
+
+
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

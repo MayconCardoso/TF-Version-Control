@@ -43,5 +43,11 @@ public class BaseFirestoreDatasource<ENTITY> {
         return RxFirestoreObserver.create( entityClass ).observeCollection( query );
     }
 
+    public Observable<List<ENTITY>> getFirstList(Class<ENTITY> entityClass, Query query) {
+        return RxFirestoreObserver.create( entityClass ).getCollectionValue( query );
+    }
+
+
+
 
 }

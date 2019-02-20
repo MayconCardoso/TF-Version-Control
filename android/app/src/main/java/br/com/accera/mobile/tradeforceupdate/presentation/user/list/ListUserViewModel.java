@@ -1,4 +1,4 @@
-package br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement;
+package br.com.accera.mobile.tradeforceupdate.presentation.user.list;
 
 import java.util.List;
 
@@ -13,13 +13,17 @@ import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
-public class NeedApprovementViewModel extends BaseObservableViewModel<NeedApprovementObservables, NeedApprovementState> {
+/**
+ * Created by Rafael Spitaliere on 19/02/19.
+ */
+
+public class ListUserViewModel extends BaseObservableViewModel<ListUserObservables, ListUserState> {
 
     private GetUsersByAuthorizedStatusCase mGetUsersByAuthorizedStatusCase;
     private UpdateUserCase mUpdateUserCase;
 
     @Inject
-    public NeedApprovementViewModel(GetUsersByAuthorizedStatusCase getUsersByAuthorizedStatusCase, UpdateUserCase updateUserCase) {
+    public ListUserViewModel(GetUsersByAuthorizedStatusCase getUsersByAuthorizedStatusCase, UpdateUserCase updateUserCase) {
         mGetUsersByAuthorizedStatusCase = addUseCase(getUsersByAuthorizedStatusCase);
         mUpdateUserCase = addUseCase(updateUserCase);
     }
@@ -92,5 +96,9 @@ public class NeedApprovementViewModel extends BaseObservableViewModel<NeedApprov
         }
 
         return user.getFirstName() + " " + "foi revogado!";
+    }
+
+    public void setUserPermissionNavigation(User item) {
+        mObservable.mUserToPermission.setValue(item);
     }
 }

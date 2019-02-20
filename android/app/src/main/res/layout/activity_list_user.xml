@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="br.com.accera.mobile.tradeforceupdate.presentation.user.needapprovement.NeedApprovementViewModel"/>
+            type="br.com.accera.mobile.tradeforceupdate.presentation.user.list.ListUserViewModel"/>
 
     </data>
 
@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.user.needapprovement.NeedApprovementActivity">
+        tools:context=".presentation.user.list.ListUserActivity">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/linearLayout"
