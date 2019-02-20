@@ -1,7 +1,5 @@
 package br.com.accera.mobile.tradeforceupdate.presentation.user.permissions;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,9 +55,7 @@ public class PermissionViewModel extends BaseObservableViewModel<PermissionObser
     }
 
     public void savePermissions(){
-        List<Permission> value = getPermissions();
-
-        mUser.setPermissions(value);
+        mUser.setPermissions(getPermissions());
         RxCaseExecutor.execute(mUpdateUserCase, mUser)
                 .subscribe(new SingleObserver<User>() {
                     @Override
@@ -69,7 +65,7 @@ public class PermissionViewModel extends BaseObservableViewModel<PermissionObser
 
                     @Override
                     public void onSuccess(User user) {
-
+                        mObservable.mGoBack.call();
                     }
 
                     @Override
@@ -80,11 +76,11 @@ public class PermissionViewModel extends BaseObservableViewModel<PermissionObser
     }
 
     private List<Permission> getPermissions() {
-        List<Permission> value = new ArrayList<>(mObservable.mPermissions.getValue());
+        List<Permission> value = new ArrayList<>();
 
-        for (Permission p : value) {
-            if (!p.isActive()){
-                value.remove(p);
+        for (Permission p : mObservable.mPermissions.getValue()) {
+            if (p.isActive()){
+                value.add(p);
             }
         }
         return value;

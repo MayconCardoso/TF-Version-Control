@@ -49,6 +49,7 @@ public class PermissionActivity extends BaseMvvmActivity<ActivityPermissionBindi
 
     private void registerObservables() {
         mViewModel.getObservable().mPermissions.observe(this, mAdapter::setItens);
+        mViewModel.getObservable().mGoBack.observe(this, (__)-> onBackPressed());
     }
 
     private User getUser() {
