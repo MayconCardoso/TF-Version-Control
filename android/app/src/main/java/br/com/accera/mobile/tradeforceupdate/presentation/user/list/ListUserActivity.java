@@ -5,30 +5,32 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.accera.mobile.tradeforceupdate.R;
-import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivityDrawer;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityListUserBinding;
 import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
-import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuComponent;
 
 /**
  * Created by Rafael Spitaliere on 19/02/19.
  */
 
-public class ListUserActivity extends BaseMvvmActivity<ActivityListUserBinding, ListUserViewModel, ListUserNavigator> {
+public class ListUserActivity extends BaseMvvmActivityDrawer<ActivityListUserBinding, ListUserViewModel, ListUserNavigator> {
 
     @Inject
     protected ListUserAdapter mAdapter;
 
-    @Inject
-    protected DrawerMenuComponent mDrawerMenuComponent;
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_list_user;
+    }
+
+    @Override
+    protected Toolbar getToolbar() {
+        return mViewDataBinding.toolbar;
     }
 
     @Override
@@ -40,10 +42,6 @@ public class ListUserActivity extends BaseMvvmActivity<ActivityListUserBinding, 
         mAdapter.setEvent(getAdapterClicks());
 
         mViewModel.loadUsers();
-
-        setSupportActionBar(mViewDataBinding.toolbar);
-
-
     }
 
     private void setUpRecyclerView() {
@@ -54,7 +52,6 @@ public class ListUserActivity extends BaseMvvmActivity<ActivityListUserBinding, 
     }
 
     private void registerObservables() {
-        getLifecycle().addObserver( mDrawerMenuComponent );
         mViewModel.getObservable().mUsers.observe(this, mAdapter::setItens);
         mViewModel.getObservable().mUserToPermission.observe(this,  mNavigator::goToPermissions);
         mViewModel.getObservable().mApprove.observe(this, this::showToastUserApproved);
