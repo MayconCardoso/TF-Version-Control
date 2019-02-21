@@ -8,28 +8,29 @@ import android.view.MenuItem;
 import android.view.View;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
+import androidx.appcompat.widget.Toolbar;
 import br.com.accera.mobile.tradeforceupdate.R;
-import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivityDrawer;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityDashboardBinding;
 import br.com.accera.mobile.tradeforceupdate.presentation.appversion.list.ListAppVersionActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListScheduleActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuComponent;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.user.list.ListUserActivity;
 
 /**
  * @author MAYCON CARDOSO on 07/01/2019.
  */
-public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding, DashboardViewModel, DashboardNavigator> {
-    @Inject
-    DrawerMenuComponent mDrawerMenuComponent;
+public class DashboardActivity extends BaseMvvmActivityDrawer<ActivityDashboardBinding, DashboardViewModel, DashboardNavigator> {
+
+    @Override
+    protected Toolbar getToolbar() {
+        return mViewDataBinding.toolbar;
+    }
 
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
-        setSupportActionBar(mViewDataBinding.toolbar);
         registerObservables();
     }
 
@@ -54,8 +55,6 @@ public class DashboardActivity extends BaseMvvmActivity<ActivityDashboardBinding
     }
 
     private void registerObservables() {
-        // Register drawer menu component on life cycle.
-        getLifecycle().addObserver( mDrawerMenuComponent );
         // Navigator
         mViewModel.getObservable().mAuthScreen.observe( this, ( __ ) -> mNavigator.goToLogin() );
     }

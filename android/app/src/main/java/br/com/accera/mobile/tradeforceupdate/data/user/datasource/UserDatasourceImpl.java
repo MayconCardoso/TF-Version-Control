@@ -51,6 +51,7 @@ public class UserDatasourceImpl extends BaseFirestoreDatasource<User> implements
             mCollection.document( email ).get().addOnSuccessListener( documentSnapshot -> {
                 if( emitter == null || emitter.isDisposed() ) return;
                 emitter.onSuccess( documentSnapshot.toObject( User.class ) );
+                emitter.onComplete();
             } ).addOnFailureListener( e -> {
                 if( emitter == null || emitter.isDisposed() ) return;
                 emitter.onError( e );

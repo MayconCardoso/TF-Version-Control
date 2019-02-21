@@ -8,25 +8,32 @@ import android.view.MenuItem;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.accera.mobile.tradeforceupdate.R;
-import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivityDrawer;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityListInstanceBinding;
 
 /**
  * @author MAYCON CARDOSO on 30/01/2019.
  */
-public class ListInstanceActivity extends BaseMvvmActivity<ActivityListInstanceBinding, ListInstanceViewModel, ListInstanceNavigator> {
+public class ListInstanceActivity extends BaseMvvmActivityDrawer<ActivityListInstanceBinding, ListInstanceViewModel, ListInstanceNavigator> {
     @Inject
     protected ListInstanceAdapter mAdapter;
+
+    @Override
+    protected Toolbar getToolbar() {
+        return mViewDataBinding.toolbar;
+    }
 
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         registerObservables();
         setUpRecyclerView();
+
 
         // Set event on adapter
         mAdapter.setEvent( mViewModel::editInstance );

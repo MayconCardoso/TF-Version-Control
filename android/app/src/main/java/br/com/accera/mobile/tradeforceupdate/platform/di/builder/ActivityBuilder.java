@@ -12,7 +12,6 @@ import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListSchedu
 import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListScheduleModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.deploy.schedule.ScheduleDeployModule;
-import br.com.accera.mobile.tradeforceupdate.presentation.drawermenu.DrawerMenuModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceActivity;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceModule;
 import br.com.accera.mobile.tradeforceupdate.presentation.instance.register.RegisterInstanceActivity;
@@ -42,7 +41,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector( modules = {SplashActivityModule.class} )
     abstract SplashActivity bindSplashActivity();
 
-    @ContributesAndroidInjector( modules = {DashboardActivityModule.class, DrawerMenuModule.class} )
+    @ContributesAndroidInjector( modules = {DashboardActivityModule.class} )
     abstract DashboardActivity bindDashboardActivity();
 
     @ContributesAndroidInjector( modules = {WaitingApprovementActivityModule.class} )

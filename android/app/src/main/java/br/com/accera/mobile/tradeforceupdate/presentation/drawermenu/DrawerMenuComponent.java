@@ -2,12 +2,10 @@ package br.com.accera.mobile.tradeforceupdate.presentation.drawermenu;
 
 import android.content.Intent;
 import android.view.Gravity;
-import android.view.View;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
@@ -22,11 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import br.com.accera.mobile.tradeforceupdate.R;
+import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.rx.RxCaseExecutor;
+import br.com.accera.mobile.tradeforceupdate.domain.auth.cases.GetLoggedUserCase;
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.DrawerItem;
 import br.com.accera.mobile.tradeforceupdate.domain.drawermenu.entity.DrawerSection;
 import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author MAYCON CARDOSO on 24/01/2019.
@@ -34,14 +35,16 @@ import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
 public class DrawerMenuComponent implements LifecycleObserver {
     private AppCompatActivity mActivity;
     private DrawerMenuViewModel mDrawerMenuViewModel;
+    private GetLoggedUserCase mGetLoggedUserCase;
     private com.mikepenz.materialdrawer.Drawer mNavigationDrawer;
     private ProfileDrawerItem mProfileItem;
     private AccountHeader mAccountHeader;
 
     @Inject
-    public DrawerMenuComponent( AppCompatActivity activity, DrawerMenuViewModel drawerMenuViewModel) {
+    public DrawerMenuComponent(AppCompatActivity activity, DrawerMenuViewModel drawerMenuViewModel, GetLoggedUserCase getLoggedUserCase) {
         mActivity = activity;
         mDrawerMenuViewModel = drawerMenuViewModel;
+        mGetLoggedUserCase = getLoggedUserCase;
     }
 
     @OnLifecycleEvent( Lifecycle.Event.ON_CREATE )
@@ -53,6 +56,14 @@ public class DrawerMenuComponent implements LifecycleObserver {
             removeAllItens();
             populeItens( drawer.getSections() );
         } );
+    }
+
+    public boolean isDrawerOpen(){
+        return mNavigationDrawer.isDrawerOpen();
+    }
+
+    public void closeDrawer(){
+        mNavigationDrawer.closeDrawer();
     }
 
     @OnLifecycleEvent( Lifecycle.Event.ON_START )
@@ -81,19 +92,58 @@ public class DrawerMenuComponent implements LifecycleObserver {
                 .withAccountHeader( mAccountHeader )
                 .withActionBarDrawerToggleAnimated( true )
                 .withDrawerGravity( Gravity.START )
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> navigateTo(drawerItem))
                 .build();
     }
 
+    private boolean navigateTo(IDrawerItem drawerItem) {
+        DrawerItem tag = (DrawerItem) drawerItem.getTag();
+
+        if (isCurrentPage(tag)){
+            closeDrawer();
+            return true;
+        }
+
+        try {
+            mActivity.startActivity(new Intent(mActivity, Class.forName(tag.getTarget())));
+        } catch (ClassNotFoundException e) {
+
+        }
+        return false;
+    }
+
     private void createProfile() {
+        RxCaseExecutor.execute(mGetLoggedUserCase).subscribe(new SingleObserver<User>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(User user) {
+                setUpProfileItem(user);
+                mAccountHeader.updateProfile(mProfileItem);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+
         User mLogged = new User();
-        mLogged.setLastName( "Cardoso" );
-        mLogged.setFirstName( "Maycon" );
-        mLogged.setEmail( "maycon.cardoso@accera.com.br" );
+        mLogged.setLastName( "Carregando..." );
+        mLogged.setFirstName( "Carregando..." );
+        mLogged.setEmail( "Carregando..." );
+        setUpProfileItem(mLogged);
+    }
+
+    private void setUpProfileItem(User mLogged) {
         mProfileItem = new ProfileDrawerItem()
-                .withTextColor( android.R.color.white )
+                .withTextColor( mActivity.getResources().getColor(android.R.color.white) )
                 .withName( mLogged.getLastName().toUpperCase().concat( ", " ).concat( mLogged.getFirstName() ))
                 .withEmail( mLogged.getEmail() )
-                .withIdentifier( mLogged.getEmail().hashCode() );
+                .withIdentifier( 1 );
         loadImage();
     }
 
@@ -168,10 +218,15 @@ public class DrawerMenuComponent implements LifecycleObserver {
                 .withName( drawerItem.getTitle() )
                 .withTag( drawerItem )
                 .withIcon( GoogleMaterial.Icon.valueOf( drawerItem.getIcon() ) )
+                .withSetSelected(isCurrentPage(drawerItem))
                 .withSelectable( true );
 
         mNavigationDrawer.addItem( item );
         return item;
+    }
+
+    private boolean isCurrentPage(DrawerItem drawerItem) {
+        return drawerItem.getTarget().equals(mActivity.getClass().getName());
     }
 
 }

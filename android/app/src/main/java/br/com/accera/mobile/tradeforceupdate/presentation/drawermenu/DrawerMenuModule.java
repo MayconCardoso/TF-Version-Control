@@ -1,8 +1,10 @@
 package br.com.accera.mobile.tradeforceupdate.presentation.drawermenu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
@@ -15,4 +17,7 @@ public abstract class DrawerMenuModule {
     static DrawerMenuViewModel provideViewModel( ViewModelProvider.Factory factory, AppCompatActivity view ) {
         return ViewModelProviders.of( view, factory ).get( DrawerMenuViewModel.class );
     }
+
+    @Binds
+    abstract LifecycleOwner provideLifecycleOwner(AppCompatActivity view);
 }

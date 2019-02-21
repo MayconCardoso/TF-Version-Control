@@ -25,37 +25,46 @@
         <activity
             android:name=".presentation.dashboard.DashboardActivity"
             android:label="@string/title_screen_dashboard"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".presentation.user.register.RegisterUserActivity"
-            android:label="@string/title_screen_register_user" />
+            android:label="@string/title_screen_register_user"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".presentation.appversion.register.RegisterAppVersionActivity"
-            android:label="@string/title_screen_register_app_version" />
+            android:label="@string/title_screen_register_app_version"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".presentation.user.waitingapprovement.WaitingApprovementActivity"
-            android:label="@string/title_screen_waiting_approvement" />
+            android:label="@string/title_screen_waiting_approvement"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".presentation.appversion.list.ListAppVersionActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/title_screen_versions" />
         <activity
             android:name=".presentation.instance.register.RegisterInstanceActivity"
-            android:label="@string/title_screen_register_instance" />
+            android:label="@string/title_screen_register_instance"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".presentation.instance.list.ListInstanceActivity"
-            android:label="@string/title_screen_list_instance" />
+            android:label="@string/title_screen_list_instance"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".presentation.deploy.schedule.ScheduleDeployActivity"
-            android:label="@string/title_screen_schedule_deploy" />
+            android:label="@string/title_screen_schedule_deploy"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".presentation.deploy.list.ListScheduleActivity"
             android:label="@string/title_screen_list_schedule_deploy"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".presentation.error.ErrorActivity"
             android:label="@string/title_screen_error" />
 
-        <activity android:name=".presentation.user.list.ListUserActivity" />
+        <activity android:name=".presentation.user.list.ListUserActivity"
+            android:theme="@style/AppTheme"
+            android:label="@string/title_screen_users"/>
         <activity android:name=".presentation.user.permissions.PermissionActivity" />
     </application>
 

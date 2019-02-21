@@ -8,19 +8,26 @@ import android.view.MenuItem;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.accera.mobile.tradeforceupdate.R;
-import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivityDrawer;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityListAppVersionBinding;
 
 /**
  * @author MAYCON CARDOSO on 30/01/2019.
  */
-public class ListAppVersionActivity extends BaseMvvmActivity<ActivityListAppVersionBinding, ListAppVersionViewModel, ListAppVersionNavigator> {
+public class ListAppVersionActivity extends BaseMvvmActivityDrawer<ActivityListAppVersionBinding, ListAppVersionViewModel, ListAppVersionNavigator> {
+
     @Inject
     protected ListAppVersionAdapter mVersionAdapter;
+
+    @Override
+    protected Toolbar getToolbar() {
+        return mViewDataBinding.toolbar;
+    }
 
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {

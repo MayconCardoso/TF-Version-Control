@@ -1,13 +1,10 @@
 package br.com.accera.mobile.tradeforceupdate.presentation.deploy.list;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -15,9 +12,10 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import br.com.accera.mobile.tradeforceupdate.R;
-import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivity;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivityDrawer;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityListScheduleBinding;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
 import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.Deploy;
@@ -26,15 +24,19 @@ import br.com.accera.mobile.tradeforceupdate.domain.deploy.entity.ScheduleDeploy
 /**
  * @author MAYCON CARDOSO on 30/01/2019.
  */
-public class ListScheduleActivity extends BaseMvvmActivity<ActivityListScheduleBinding, ListScheduleViewModel, ListScheduleNavigator> {
+public class ListScheduleActivity extends BaseMvvmActivityDrawer<ActivityListScheduleBinding, ListScheduleViewModel, ListScheduleNavigator> {
 
     @Inject
     protected ListScheduleFragmentPagerAdapter mPagerAdapter;
 
     @Override
+    protected Toolbar getToolbar() {
+        return mViewDataBinding.toolbar;
+    }
+
+    @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
-        setSupportActionBar( mViewDataBinding.toolbar );
         registerObservables();
         setupViewPager();
 
