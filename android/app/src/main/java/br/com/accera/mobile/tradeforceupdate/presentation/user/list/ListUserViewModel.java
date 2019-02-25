@@ -49,6 +49,9 @@ public class ListUserViewModel extends BaseObservableViewModel<ListUserObservabl
 
                     @Override
                     public void onSuccess(User user) {
+                        if (user.getPermissions() == null && item.isAuthorized()){
+                            mObservable.mUserToPermission.setValue(user);
+                        }
                         mObservable.mApprove.setValue(getToastMessage(user));
                     }
 

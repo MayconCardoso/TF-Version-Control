@@ -29,17 +29,27 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="50dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@{item.firstName.concat(@string/space).concat(item.lastName)}"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        tools:text="Rafael Spitaliere" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="Quantidade de usuários"
-                        app:srcCompat="@drawable/ic_group_black_24dp" />
+                        app:srcCompat="@drawable/ic_person_black_24dp"
+                        android:layout_gravity="bottom"/>
 
 
                     <!--<TextView-->
@@ -52,15 +62,6 @@
 
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.firstName.concat(@string/space).concat(item.lastName)}"
-                    android:textColor="@color/colorPrimary"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    android:textStyle="bold"
-                    tools:text="Rafael Spitaliere"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

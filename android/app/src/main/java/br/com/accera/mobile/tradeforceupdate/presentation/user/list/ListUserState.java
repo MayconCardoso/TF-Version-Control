@@ -12,7 +12,7 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.D
 
 public class ListUserState implements DataState {
     public final ObservableBoolean mLoading = new ObservableBoolean( false );
-    public final ObservableField<Boolean> mAuthStatus = new ObservableField<>( false );
+    public final ObservableField<Boolean> mAuthStatus = new ObservableField<>( true );
 
     @Inject
     public ListUserState() {

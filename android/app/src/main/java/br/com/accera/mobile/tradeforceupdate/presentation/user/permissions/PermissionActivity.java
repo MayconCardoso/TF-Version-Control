@@ -34,7 +34,8 @@ public class PermissionActivity extends BaseMvvmActivity<ActivityPermissionBindi
         setUpRecyclerView();
 
 
-
+        mViewDataBinding.toolbar.setTitle(getUser().getFirstName() + " " + getUser().getLastName());
+        mViewDataBinding.setUser(getUser());
         mViewModel.setUser(getUser());
         mViewModel.loadPermissions();
 

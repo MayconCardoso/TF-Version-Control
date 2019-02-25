@@ -10,6 +10,14 @@
             name="viewModel"
             type="br.com.accera.mobile.tradeforceupdate.presentation.user.permissions.PermissionViewModel"/>
 
+        <variable
+            name="user"
+            type="br.com.accera.mobile.tradeforceupdate.domain.user.entity.User"/>
+        
+        <variable
+            name="profile"
+            type="br.com.accera.mobile.tradeforceupdate.domain.user.entity.Profile"/>
+
     </data>
 
     <LinearLayout
@@ -22,6 +30,54 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:titleTextColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Perfil do Usuário" />
+
+        <RadioGroup
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:checked="@{user.profile.equals(profile.OPERATION)}"
+                android:onClick="@{()->user.setProfile(profile.OPERATION)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Operação"/>
+
+            <RadioButton
+                android:checked="@{user.profile.equals(profile.TECHNOLOGY)}"
+                android:onClick="@{()->user.setProfile(profile.TECHNOLOGY)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tecnologia"/>
+
+            <RadioButton
+                android:checked="@{user.profile.equals(profile.ADM)}"
+                android:onClick="@{()->user.setProfile(profile.ADM)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Administrador"/>
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#999999"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Permissões" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/permissionList"
