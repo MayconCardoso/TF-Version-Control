@@ -14,4 +14,6 @@ public interface AuthRepository {
     Single<User> tryLogin( String email, String password );
 
     Completable logout();
+
+    Single<Boolean> recoverPassword(String email);
 }

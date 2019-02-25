@@ -39,4 +39,9 @@ public class AuthSessionImpl implements AuthSession {
     public Completable disconnect() {
         return mAuthRepository.logout();
     }
+
+    @Override
+    public Single<Boolean> tryRecoverPassword(String email) {
+        return mAuthRepository.recoverPassword(email);
+    }
 }

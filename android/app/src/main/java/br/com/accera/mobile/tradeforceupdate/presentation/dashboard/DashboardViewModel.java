@@ -39,6 +39,7 @@ public class DashboardViewModel extends BaseObservableViewModel<DashboardObserva
         });
     }
 
+
     public void synchronyzeInstanceInformation() {
         RxCaseExecutor.execute(mGetAllInstancesCase).subscribe(new Observer<List<Instance>>() {
             @Override
