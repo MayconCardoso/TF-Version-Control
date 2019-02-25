@@ -35,4 +35,13 @@ public class InstanceDatasourceImpl extends BaseFirestoreDatasource<Instance> im
                 .orderBy( "name", Query.Direction.ASCENDING )
         );
     }
+
+    @Override
+    public Observable<List<Instance>> getAllInstances() {
+        return getAll( Instance.class, mCollection
+                .orderBy( "name", Query.Direction.ASCENDING )
+        );
+
+    }
+
 }

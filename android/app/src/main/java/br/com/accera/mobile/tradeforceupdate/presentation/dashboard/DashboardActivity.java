@@ -1,11 +1,20 @@
 package br.com.accera.mobile.tradeforceupdate.presentation.dashboard;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -13,10 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseMvvmActivityDrawer;
 import br.com.accera.mobile.tradeforceupdate.databinding.ActivityDashboardBinding;
-import br.com.accera.mobile.tradeforceupdate.presentation.appversion.list.ListAppVersionActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.deploy.list.ListScheduleActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.instance.list.ListInstanceActivity;
-import br.com.accera.mobile.tradeforceupdate.presentation.user.list.ListUserActivity;
 
 /**
  * @author MAYCON CARDOSO on 07/01/2019.
@@ -32,6 +37,7 @@ public class DashboardActivity extends BaseMvvmActivityDrawer<ActivityDashboardB
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         registerObservables();
+        mViewModel.synchronyzeInstanceInformation();
     }
 
     @Override
@@ -57,23 +63,37 @@ public class DashboardActivity extends BaseMvvmActivityDrawer<ActivityDashboardB
     private void registerObservables() {
         // Navigator
         mViewModel.getObservable().mAuthScreen.observe( this, ( __ ) -> mNavigator.goToLogin() );
+
+        mViewModel.getObservable().mPieChartInstances.observe(this, this::setChart);
     }
 
-    public void registerVersion( View view ) {
-        // TODO: 30/01/2019 remove
-        startActivity( new Intent( this, ListAppVersionActivity.class ) );
+    private void setChart(HashMap<String, Integer> instanceInformation) {
+        ArrayList<Entry> numberOfInstances = new ArrayList<Entry>();
+        ArrayList<String> versionName = new ArrayList<String>();
+        int i = 0;
+        for(Map.Entry<String, Integer> entry : instanceInformation.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            versionName.add(key);
+            numberOfInstances.add(new Entry(value.floatValue(), i++));
+        }
+        PieDataSet dataSet = new PieDataSet(numberOfInstances, null);
+        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        PieData data = new PieData(versionName, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        mViewDataBinding.piechart.setUsePercentValues(true);
+        mViewDataBinding.piechart.setData(data);
+        mViewDataBinding.piechart.setDescription(null);
+        setLegend();
+        mViewDataBinding.piechart.invalidate();
     }
 
-    public void registerClient( View view ) {
-        // TODO: 30/01/2019 remove
-        startActivity( new Intent( this, ListInstanceActivity.class ) );
+    private void setLegend() {
+        mViewDataBinding.piechart.getLegend().setFormSize(12f);
+        mViewDataBinding.piechart.getLegend().setTextSize(12f);
+        mViewDataBinding.piechart.getLegend().setForm(Legend.LegendForm.CIRCLE);
+        mViewDataBinding.piechart.getLegend().setXEntrySpace(15);
+        mViewDataBinding.piechart.getLegend().setYEntrySpace(15);
     }
 
-    public void registerCalendar( View view ) {
-        startActivity( new Intent( this, ListScheduleActivity.class ) );
-    }
-
-    public void userAuthorize( View view ) {
-        startActivity( new Intent( this, ListUserActivity.class ) );
-    }
 }

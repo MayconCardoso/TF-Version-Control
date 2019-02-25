@@ -15,4 +15,6 @@ public interface InstanceRepository {
 
     Observable<List<Instance>> getAllInstancesByOwner( String value );
 
+    Observable<List<Instance>> getAllInstances(  );
+
 }

@@ -30,4 +30,10 @@ public class InstanceRepositoryImpl implements InstanceRepository {
     public Observable<List<Instance>> getAllInstancesByOwner( String value ) {
         return mInstanceDatasource.getAllInstancesByOwner( value );
     }
+
+    @Override
+    public Observable<List<Instance>> getAllInstances() {
+
+        return mInstanceDatasource.getAllInstances();
+    }
 }

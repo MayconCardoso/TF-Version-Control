@@ -18,50 +18,30 @@
             android:background="@color/colorPrimary"
             app:titleTextColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:onClick="registerVersion"
-            android:text="Versao" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="4dp">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:onClick="registerClient"
-            android:text="CLIENTE" />
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Porcentagem de Instâncias em cada Versão"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textAlignment="center"/>
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:onClick="registerCalendar"
-            android:text="Calendário" />
-
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:onClick="userAuthorize"
-            android:text="Autorizar" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:paddingLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"/></androidx.cardview.widget.CardView>
 
     </LinearLayout>
 </layout>
