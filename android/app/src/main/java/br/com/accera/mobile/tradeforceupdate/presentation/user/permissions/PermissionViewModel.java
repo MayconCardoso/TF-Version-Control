@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.rx.RxCaseExecutor;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedback.AlertMessage;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.domain.permission.entity.Permission;
 import br.com.accera.mobile.tradeforceupdate.domain.permission.usecase.GetUserPermissionsCase;
@@ -70,7 +72,10 @@ public class PermissionViewModel extends BaseObservableViewModel<PermissionObser
 
                     @Override
                     public void onError(Throwable e) {
-
+                        getAlertFeedback().setValue( new AlertMessage.Builder()
+                                .setTitle( R.string.atenttion )
+                                .setMessage( e.getMessage() )
+                        );
                     }
                 });
     }

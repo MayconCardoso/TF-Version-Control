@@ -10,10 +10,7 @@ import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.B
 import br.com.accera.mobile.tradeforceupdate.common.platform.util.DateUtil;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.cases.RegisterAppVersionCase;
 import br.com.accera.mobile.tradeforceupdate.domain.appversion.entity.AppVersion;
-import br.com.accera.mobile.tradeforceupdate.domain.user.cases.RegisterUserCase;
-import br.com.accera.mobile.tradeforceupdate.domain.user.entity.User;
 import br.com.accera.mobile.tradeforceupdate.platform.rx.CompletableObserver;
-import br.com.accera.mobile.tradeforceupdate.platform.rx.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
 

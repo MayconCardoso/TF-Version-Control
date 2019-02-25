@@ -15,24 +15,30 @@ import br.com.accera.mobile.tradeforceupdate.domain.instance.cases.FilterInstanc
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.InstanceOwner;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.repository.InstanceRepository;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.entity.PermissionAvailable;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.usecase.HasPermissionCase;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.usecase.PermissionChecker;
 import io.reactivex.Completable;
 
 /**
  * @author MAYCON CARDOSO on 04/02/2019.
  */
-public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomDeployCase.Request> {
+public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomDeployCase.Request> implements PermissionChecker {
     private InstanceRepository mRepository;
     private DeployRepository mDeployRepository;
     private CreateDeployCase mCreateDeployCase;
     private FilterInstanceRandomlyCase mFilterInstanceRandomlyCase;
+    private HasPermissionCase mHasPermissionCase;
 
 
     @Inject
-    public ScheduleRandomDeployCase( InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase, FilterInstanceRandomlyCase filterInstanceRandomlyCase ) {
+    public ScheduleRandomDeployCase(InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase, FilterInstanceRandomlyCase filterInstanceRandomlyCase,
+                                    HasPermissionCase hasPermissionCase) {
         mRepository = userRepository;
         mDeployRepository = deployRepository;
         mCreateDeployCase = createDeployCase;
         mFilterInstanceRandomlyCase = filterInstanceRandomlyCase;
+        mHasPermissionCase = hasPermissionCase;
     }
 
     @Override
@@ -44,8 +50,10 @@ public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomD
             // Get days that will have deploy.
             List<String> daysToDeploy = new GetDaysToDeployCase().run( daysNecessary, value.countDeploy, value.countNecessaryDays );
 
-            // Get all technology's instances.
-            return mRepository.getAllInstancesByOwner( InstanceOwner.TECH.getOwner() )
+            // Verify user's permission
+            return mHasPermissionCase.run(getPermission())
+                    // Get all technology's instances.
+                    .flatMapObservable(hasPermission ->  mRepository.getAllInstancesByOwner( InstanceOwner.TECH.getOwner() ))
                     // Get first element to not perform infinity cycle.
                     .firstElement()
                     // Map it to an schedule deploy
@@ -98,6 +106,11 @@ public class ScheduleRandomDeployCase extends CompletableUseCase<ScheduleRandomD
         schedule.setVersion( version );
         schedule.setDeploys( deploys );
         return schedule;
+    }
+
+    @Override
+    public PermissionAvailable getPermission() {
+        return PermissionAvailable.SCHEDULE_DEPLOY;
     }
 
     public static class Request {

@@ -6,21 +6,28 @@ import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.rx.Completabl
 import br.com.accera.mobile.tradeforceupdate.common.platform.util.StringUtil;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.repository.InstanceRepository;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.entity.PermissionAvailable;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.usecase.HasPermissionCase;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.usecase.PermissionChecker;
 import io.reactivex.Completable;
 
 /**
  * @author MAYCON CARDOSO on 04/02/2019.
  */
-public class RegisterInstanceCase extends CompletableUseCase<Instance> {
+// TODO: 25/02/19 need permission check
+public class RegisterInstanceCase extends CompletableUseCase<Instance> implements PermissionChecker {
+
     private InstanceRepository mRepository;
+    private HasPermissionCase mHasPermissionCase;
 
     @Inject
-    public RegisterInstanceCase( InstanceRepository userRepository ) {
+    public RegisterInstanceCase(InstanceRepository userRepository, HasPermissionCase hasPermissionCase) {
         mRepository = userRepository;
+        mHasPermissionCase = hasPermissionCase;
     }
 
     @Override
-    public Completable run( Instance value ) {
+    public Completable run(Instance value) {
         return Completable.defer( () -> {
             if( StringUtil.isEmpty( value.getName() ) )
                 throw new IllegalArgumentException( "Name cannot be null" );
@@ -33,7 +40,13 @@ public class RegisterInstanceCase extends CompletableUseCase<Instance> {
             if( value.getOwner() == null )
                 throw new IllegalArgumentException( "App Owner cannot be null" );
 
-            return mRepository.register( value );
+            return mHasPermissionCase.run(getPermission())
+                    .flatMapCompletable(hasPermission -> mRepository.register( value ) );
         } );
+    }
+
+    @Override
+    public PermissionAvailable getPermission() {
+        return PermissionAvailable.REGISTER_INSTANCE;
     }
 }

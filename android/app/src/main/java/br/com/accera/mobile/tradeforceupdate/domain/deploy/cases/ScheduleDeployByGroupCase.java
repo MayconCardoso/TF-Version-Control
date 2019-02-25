@@ -15,24 +15,30 @@ import br.com.accera.mobile.tradeforceupdate.domain.instance.cases.FilterInstanc
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.Instance;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.entity.InstanceOwner;
 import br.com.accera.mobile.tradeforceupdate.domain.instance.repository.InstanceRepository;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.entity.PermissionAvailable;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.usecase.HasPermissionCase;
+import br.com.accera.mobile.tradeforceupdate.domain.permission.usecase.PermissionChecker;
 import io.reactivex.Completable;
 
 /**
  * @author MAYCON CARDOSO on 04/02/2019.
  */
-public class ScheduleDeployByGroupCase extends CompletableUseCase<AppVersion> {
+public class ScheduleDeployByGroupCase extends CompletableUseCase<AppVersion> implements PermissionChecker {
     private final InstanceRepository mRepository;
     private final DeployRepository mDeployRepository;
     private final CreateDeployCase mCreateDeployCase;
     private final FilterInstanceByGroupCase mFilterInstanceByGroupCase;
+    private HasPermissionCase mHasPermissionCase;
     private final int mCountOfDays = 3;
 
     @Inject
-    public ScheduleDeployByGroupCase( InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase, FilterInstanceByGroupCase filterInstanceByGroupCase ) {
+    public ScheduleDeployByGroupCase(InstanceRepository userRepository, DeployRepository deployRepository, CreateDeployCase createDeployCase, FilterInstanceByGroupCase filterInstanceByGroupCase,
+                                     HasPermissionCase hasPermissionCase) {
         mRepository = userRepository;
         mDeployRepository = deployRepository;
         mCreateDeployCase = createDeployCase;
         mFilterInstanceByGroupCase = filterInstanceByGroupCase;
+        mHasPermissionCase = hasPermissionCase;
     }
 
     @Override
@@ -44,8 +50,10 @@ public class ScheduleDeployByGroupCase extends CompletableUseCase<AppVersion> {
             // Get days that will have deploy.
             List<String> daysToDeploy = new GetDaysToDeployCase().run( daysNecessary, mCountOfDays, 7 );
 
-            // Get all technology's instances.
-            return mRepository.getAllInstancesByOwner( InstanceOwner.TECH.getOwner() )
+            // Verify user's permission
+            return mHasPermissionCase.run(getPermission())
+                    // Get all technology's instances.
+                    .flatMapObservable(hasPermission -> mRepository.getAllInstancesByOwner( InstanceOwner.TECH.getOwner() ))
                     // Get first element to not perform infinity cycle.
                     .firstElement()
                     // Map it to an schedule deploy
@@ -77,5 +85,10 @@ public class ScheduleDeployByGroupCase extends CompletableUseCase<AppVersion> {
         schedule.setVersion( version );
         schedule.setDeploys( deploys );
         return schedule;
+    }
+
+    @Override
+    public PermissionAvailable getPermission() {
+        return PermissionAvailable.SCHEDULE_DEPLOY;
     }
 }

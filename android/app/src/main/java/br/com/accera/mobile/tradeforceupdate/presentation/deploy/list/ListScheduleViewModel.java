@@ -113,6 +113,15 @@ public class ListScheduleViewModel extends BaseObservableViewModel<ListScheduleO
             public void onAnyResponseEvent() {
                 mState.mLoading.set( false );
             }
+
+            @Override
+            public void onErrorEvent(Throwable e) {
+                super.onErrorEvent(e);
+                getAlertFeedback().setValue( new AlertMessage.Builder()
+                        .setTitle( R.string.atenttion )
+                        .setMessage( e.getMessage() )
+                );
+            }
         } );
     }
 }

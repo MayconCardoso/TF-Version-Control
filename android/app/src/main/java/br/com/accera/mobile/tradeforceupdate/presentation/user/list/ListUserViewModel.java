@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.accera.mobile.tradeforceupdate.R;
 import br.com.accera.mobile.tradeforceupdate.common.domain.usecase.rx.RxCaseExecutor;
+import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.feedback.AlertMessage;
 import br.com.accera.mobile.tradeforceupdate.common.platform.presentation.mvvm.BaseObservableViewModel;
 import br.com.accera.mobile.tradeforceupdate.domain.user.cases.GetUsersByAuthorizedStatusCase;
 import br.com.accera.mobile.tradeforceupdate.domain.user.cases.UpdateUserCase;
@@ -57,7 +59,10 @@ public class ListUserViewModel extends BaseObservableViewModel<ListUserObservabl
 
                     @Override
                     public void onError(Throwable e) {
-
+                        getAlertFeedback().setValue( new AlertMessage.Builder()
+                                .setTitle( R.string.atenttion )
+                                .setMessage( e.getMessage() )
+                        );
                     }
                 });
     }
