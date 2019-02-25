@@ -34,4 +34,9 @@ public class AuthRepositoryImpl implements AuthRepository {
     public Completable logout() {
         return mUserDatasource.logout();
     }
+
+    @Override
+    public Single<Boolean> recoverPassword(String email) {
+        return mUserDatasource.tryRecoverPassword(email);
+    }
 }

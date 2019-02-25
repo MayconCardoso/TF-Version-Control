@@ -13,4 +13,6 @@ public interface AuthDatasource {
     Completable logout();
 
     Single<User> tryLogin( String email, String password);
+
+    Single<Boolean> tryRecoverPassword(String email);
 }

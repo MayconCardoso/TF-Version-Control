@@ -1,5 +1,6 @@
 package br.com.accera.mobile.tradeforceupdate.data.auth.datasource;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,6 +55,19 @@ public class AuthDatasourceImpl implements AuthDatasource {
     }
 
     @Override
+    public Single<Boolean> tryRecoverPassword(String email) {
+        return Single.defer( () -> Single.<Boolean>create(emmiter ->
+                mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        emitterRecoverPasswordAuth( emmiter );
+                        return;
+                    }
+                    emmiteRecoverPasswordFailed( emmiter, task );
+                })
+        ));
+    }
+
+    @Override
     public synchronized Completable logout() {
         return Completable.fromAction( () -> {
             mCachedUser = null;
@@ -80,6 +94,19 @@ public class AuthDatasourceImpl implements AuthDatasource {
 
         emmiter.onSuccess( "" );
     }
+
+    private void emitterRecoverPasswordAuth( SingleEmitter<Boolean> emmiter) {
+        if( emmiter == null || emmiter.isDisposed() ) return;
+
+        emmiter.onSuccess( true );
+    }
+
+    private void emmiteRecoverPasswordFailed(SingleEmitter<Boolean> emmiter, Task<Void> task ) {
+        if( emmiter == null || emmiter.isDisposed() ) return;
+
+        emmiter.onError( task.getException() );
+    }
+
 
     //==============================================================================================
 
