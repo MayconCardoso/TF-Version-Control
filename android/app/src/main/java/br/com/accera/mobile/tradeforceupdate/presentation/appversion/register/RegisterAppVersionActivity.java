@@ -17,6 +17,7 @@ public class RegisterAppVersionActivity extends BaseMvvmActivity<ActivityRegiste
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
+        mViewDataBinding.toolbar.setTitle(R.string.title_screen_register_app_version);
         registerObservables();
     }
 

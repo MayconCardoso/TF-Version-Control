@@ -19,6 +19,7 @@ public class ScheduleDeployActivity extends BaseMvvmActivity<ActivityScheduleDep
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
+        mViewDataBinding.toolbar.setTitle(R.string.title_screen_schedule_deploy);
         registerObservables();
         registerListeners();
         mViewModel.loadVersions();

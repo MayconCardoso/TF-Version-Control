@@ -32,14 +32,14 @@ public class InstanceDatasourceImpl extends BaseFirestoreDatasource<Instance> im
     public Observable<List<Instance>> getAllInstancesByOwner( String value ) {
         return getAll( Instance.class, mCollection
                 .whereEqualTo( "owner", value )
-                .orderBy( "name", Query.Direction.ASCENDING )
+                .orderBy( "totalUsuarios", Query.Direction.DESCENDING )
         );
     }
 
     @Override
     public Observable<List<Instance>> getAllInstances() {
         return getAll( Instance.class, mCollection
-                .orderBy( "name", Query.Direction.ASCENDING )
+                .orderBy( "totalUsuarios", Query.Direction.DESCENDING )
         );
 
     }

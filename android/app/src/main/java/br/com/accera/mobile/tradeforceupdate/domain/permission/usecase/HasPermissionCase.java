@@ -27,6 +27,10 @@ public class HasPermissionCase extends SingleUseCase<PermissionAvailable, Boolea
         return authSession.getLoggedUser()
                 .flatMap(user -> {
 
+                    if (!user.isAuthorized()){
+                        return Single.error(new UserUnauthorizedException());
+                    }
+
                     if (user.getProfile() == Profile.ADM){
                         return Single.just(true);
                     }
@@ -36,6 +40,7 @@ public class HasPermissionCase extends SingleUseCase<PermissionAvailable, Boolea
                             return Single.just(true);
                         }
                     }
+
                     return Single.error(new UserUnauthorizedException());
                 });
     }

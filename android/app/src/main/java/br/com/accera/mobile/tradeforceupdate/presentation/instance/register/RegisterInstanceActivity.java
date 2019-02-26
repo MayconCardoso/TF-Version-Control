@@ -21,6 +21,7 @@ public class RegisterInstanceActivity extends BaseMvvmActivity<ActivityRegisterI
     @Override
     protected void onCreate( @Nullable Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
+        mViewDataBinding.toolbar.setTitle(R.string.title_screen_register_instance);
         registerObservables();
         mViewModel.loadVersions();
         mViewDataBinding.setItem( getItem() );

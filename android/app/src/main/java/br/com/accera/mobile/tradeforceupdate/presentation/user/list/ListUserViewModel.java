@@ -31,12 +31,12 @@ public class ListUserViewModel extends BaseObservableViewModel<ListUserObservabl
     }
 
     public void loadUsersAuthorized() {
-        mState.mAuthStatus.set(true);
+        mState.mAuthStatus.setValue(true);
         getUsers();
     }
 
     public void loadUsersNotAuthorized() {
-        mState.mAuthStatus.set(false);
+        mState.mAuthStatus.setValue(false);
         getUsers();
     }
 
@@ -72,7 +72,7 @@ public class ListUserViewModel extends BaseObservableViewModel<ListUserObservabl
     }
 
     private void getUsers(){
-        RxCaseExecutor.execute(mGetUsersByAuthorizedStatusCase, mState.mAuthStatus.get())
+        RxCaseExecutor.execute(mGetUsersByAuthorizedStatusCase, mState.mAuthStatus.getValue())
                 .subscribe(new Observer<List<User>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
