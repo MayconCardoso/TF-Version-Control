@@ -73,10 +73,8 @@ public class DashboardViewModel extends BaseObservableViewModel<DashboardObserva
 
             if (!hashMap.containsKey(versionName)) {
                 hashMap.put(versionName, 0);
-            } else {
-                hashMap.put(versionName, hashMap.get(versionName) + 1);
             }
-
+            hashMap.put(versionName, hashMap.get(versionName) + 1);
         }
         return hashMap;
     }
